@@ -1,10 +1,19 @@
 package com.majeurProjet.metier;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,9 +27,16 @@ public class Incident {
 	private String number;
 	@Column(name="description_incident")
 	private String description;
-	@Column(name="name_computer")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="id_computer_incident ")
 	private Computer computer;
-	private State state;
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+        name = "historical_c", 
+        joinColumns = { @JoinColumn(name = "id_incident") }, 
+        inverseJoinColumns = { @JoinColumn(name = "id_state") }
+    )
+	private List<State> states = new ArrayList<State>();
 	
 	public int getId() {
 		return id;
@@ -46,10 +62,10 @@ public class Incident {
 	public void setComputer(Computer computer) {
 		this.computer = computer;
 	}
-	public State getState() {
-		return state;
+	public List<State> getStates() {
+		return states;
 	}
-	public void setState(State state) {
-		this.state = state;
+	public void setStates(List<State> states) {
+		this.states = states;
 	}
 }
