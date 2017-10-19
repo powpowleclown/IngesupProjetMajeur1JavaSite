@@ -1,34 +1,33 @@
 package com.majeurProjet.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.majeurProjet.dao.TestDAO;
+import com.majeurProjet.dao.RoleDAO;
 import com.majeurProjet.dao.UserDAO;
-import com.majeurProjet.metier.Test;
-import com.majeurProjet.metier.Utilisateur;
+import com.majeurProjet.metier.Role;
+import com.majeurProjet.metier.User;
 
 public class ServletHome extends UtilHttpServlet {
 	
-	public void Inscription()
+	public void Home()
+	{
+		this.displayView(null);
+	}
+	
+	public void Signin()
 	{
 		if(this.isPostBack())
 		{
-			Utilisateur user = new Utilisateur();
+			User user = new User();
 			user.setMail(this.getParam("mail"));
-			user.setPassword(this.getParam("pwd"));
-			user.setNom(this.getParam("nom"));
-			user.setPrenom(this.getParam("prenom"));
-			//Crypter pwd
+			//crypto pwd
+			user.setPwd(this.getParam("pwd"));
+			user.setName(this.getParam("nom"));
+			user.setSurname(this.getParam("prenom"));
+			Role role = RoleDAO.getRoleUser();
+			user.setRole(role);
 			UserDAO.Save(user);;
-			this.redirect("/Login/Login");
+			this.redirect("/Home/Login");
 		}
 		else
 		{
@@ -42,7 +41,7 @@ public class ServletHome extends UtilHttpServlet {
 		{
 			String mail = this.getParam("mail");
 			String pwd = this.getParam("pwd");
-			Utilisateur userLog = UserDAO.Verif(mail,pwd);
+			User userLog = UserDAO.Verif(mail,pwd);
 			if(userLog != null)
 			{
 				HttpSession session = req.getSession();

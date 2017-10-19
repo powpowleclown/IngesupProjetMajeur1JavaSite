@@ -12,6 +12,7 @@ import javax.persistence.Table;
 public class Role {
 
 	@Id
+	@Column(name = "id_role")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;
 	@Column(name="name_role")

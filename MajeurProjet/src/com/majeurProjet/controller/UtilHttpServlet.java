@@ -2,14 +2,11 @@ package com.majeurProjet.controller;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 public abstract class UtilHttpServlet extends HttpServlet {
 
@@ -26,12 +23,12 @@ public abstract class UtilHttpServlet extends HttpServlet {
 		this.action = req.getPathInfo();
 		if(action == null && this.action.equals("/"))
 		{
-			action = "/Index";
+			action = "/Home";
 		}
 		try {
 			this.getClass().getMethod(action.substring(1)).invoke(this);
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			action = "/Index";
+			action = "/Home";
 			try {
 				this.getClass().getMethod(action.substring(1)).invoke(this);
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException

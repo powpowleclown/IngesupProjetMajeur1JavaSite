@@ -20,7 +20,7 @@
 		
 		<!-- <property name="hibernate.hbm2dll.auto">create</property> -->
 		
-		<mapping class="com.majeur1.metier.Test"/>
-		<mapping class="com.majeur1.metier.Utilisateur"/>
+		<mapping class="com.majeurProjet.metier.Role"/>
+		<mapping class="com.majeurProjet.metier.User"/>
 	</session-factory>
 </hibernate-configuration>
