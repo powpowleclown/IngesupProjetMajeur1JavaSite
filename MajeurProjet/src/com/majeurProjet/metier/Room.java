@@ -24,7 +24,7 @@ public class Room {
 	private String name;
 	@Column(name="ipmask_room")
 	private String ipmask;
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
 	private List<Computer> computers = new ArrayList<Computer>();
 
 	public int getId() {

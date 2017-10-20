@@ -31,12 +31,8 @@ public class Incident {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="id_computer_incident ")
 	private Computer computer;
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-        name = "historical_c", 
-        joinColumns = { @JoinColumn(name = "id_incident") }, 
-        inverseJoinColumns = { @JoinColumn(name = "id_state") }
-    )
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+    @JoinTable(name = "historical_i",joinColumns = { @JoinColumn(name = "id_incident_historical_i") },inverseJoinColumns = { @JoinColumn(name = "id_state_historical_i") })
 	private List<State> states = new ArrayList<State>();
 	
 	public int getId() {

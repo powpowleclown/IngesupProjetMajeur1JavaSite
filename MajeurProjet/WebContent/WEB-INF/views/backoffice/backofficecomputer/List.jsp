@@ -6,4 +6,7 @@
 		<a href = "<c:url value="./AddOrUpdate">
 			<c:param name="id_computer" value="${computer.getId()}"/>
 		</c:url>">Update</a>
+		<a href = "<c:url value="./Delete">
+			<c:param name="id_computer" value="${computer.getId()}"/>
+		</c:url>">Delete</a>
 </c:forEach>

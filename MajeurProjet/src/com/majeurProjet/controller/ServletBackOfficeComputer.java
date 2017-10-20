@@ -30,20 +30,33 @@ public class ServletBackOfficeComputer extends ServletBackOffice {
 		
 		if(this.isPostBack())
 		{
-			Computer computerCreate = new Computer();
-			computerCreate.setId(this.getParamAsInt("id"));
-			computerCreate.setIp(this.getParam("ip"));
-			computerCreate.setName(this.getParam("name"));
+			Computer computerCreateOrUpdate;
+			if(id != null)
+			{
+				computerCreateOrUpdate = ComputerDAO.getComputer(id);
+			}
+			else
+			{
+				computerCreateOrUpdate = new Computer();
+			}
+			computerCreateOrUpdate.setIp(this.getParam("ip"));
+			computerCreateOrUpdate.setName(this.getParam("name"));
 			Room room = RoomDAO.getRoom(this.getParamAsInt("id_room"));
-			computerCreate.setRoom(room);
-			ComputerDAO.SaveUpdateComputer(computerCreate);
-			this.redirect("/Computer/List");
+			computerCreateOrUpdate.setRoom(room);
+			ComputerDAO.SaveUpdateComputer(computerCreateOrUpdate);
+			this.redirect("/BackOffice/Computer/List");
 		}
-		this.displayView(computer);
+		else
+		{
+			this.displayView(computer);
+		}
 	}
 	//DELETE
-	public void Delete(Computer computer)
+	public void Delete()
 	{
+		Integer id = this.getParamAsInt("id_computer");
+		Computer computer = ComputerDAO.getComputer(id);
 		ComputerDAO.DeleteComputer(computer);
+		this.redirect("/BackOffice/Computer/List");
 	}
 }

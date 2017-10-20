@@ -16,6 +16,7 @@ import javax.persistence.Table;
 public class State {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(name="id_state")
 	private int id;
 	@Column(name="name_state")
 	private String name;

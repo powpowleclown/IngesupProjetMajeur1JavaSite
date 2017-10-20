@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,11 +28,11 @@ public class Computer {
 	private String name;
 	@Column(name="ip_computer")
 	private String ip;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_room_computer")
 	private Room room;
-	@ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(name = "historical_i",joinColumns = { @JoinColumn(name = "id_computer") },inverseJoinColumns = { @JoinColumn(name = "id_state") })
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+    @JoinTable(name = "historical_c",joinColumns = { @JoinColumn(name = "id_computer_historical_c") },inverseJoinColumns = { @JoinColumn(name = "id_state_historical_c") })
 	private List<State> states = new ArrayList<State>();
 	
 	public int getId() {
