@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class UtilHttpServlet extends HttpServlet {
 
-	private static String path = "/WEB-INF/views/";
+	protected static String path = "/WEB-INF/views/";
 	public String action ="";
 	protected HttpServletRequest req = null;
 	protected HttpServletResponse resp = null;
@@ -64,8 +64,7 @@ public abstract class UtilHttpServlet extends HttpServlet {
 		String controller = this.getClass().getSimpleName();
 		controller = controller.substring(controller.lastIndexOf("Servlet") +7).toLowerCase();
 		
-		String viewName = action;
-		System.out.println(viewName);
+		String viewName = action.substring(1);
 		final String pathcomplet = path + controller + "/" + viewName + ".jsp";
 		try {
 			this.getServletContext().getRequestDispatcher(pathcomplet).forward(req, resp);

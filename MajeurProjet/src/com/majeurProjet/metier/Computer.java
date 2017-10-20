@@ -20,7 +20,8 @@ import javax.persistence.Table;
 public class Computer {
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)	
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(name="id_computer")
 	private int id;
 	@Column(name="name_computer")
 	private String name;
@@ -30,11 +31,7 @@ public class Computer {
 	@JoinColumn(name = "id_room_computer")
 	private Room room;
 	@ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-        name = "historical_i", 
-        joinColumns = { @JoinColumn(name = "id_computer") }, 
-        inverseJoinColumns = { @JoinColumn(name = "id_state") }
-    )
+    @JoinTable(name = "historical_i",joinColumns = { @JoinColumn(name = "id_computer") },inverseJoinColumns = { @JoinColumn(name = "id_state") })
 	private List<State> states = new ArrayList<State>();
 	
 	public int getId() {

@@ -1,17 +1,23 @@
 package com.majeurProjet.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import com.majeurProjet.dao.RoleDAO;
+import com.majeurProjet.dao.RoomDAO;
 import com.majeurProjet.dao.UserDAO;
+import com.majeurProjet.metier.Computer;
 import com.majeurProjet.metier.Role;
+import com.majeurProjet.metier.Room;
 import com.majeurProjet.metier.User;
 
 public class ServletHome extends UtilHttpServlet {
 	
 	public void Home()
 	{
-		this.displayView(null);
+		List<Room> rooms = RoomDAO.ListRoom();
+		this.displayView(rooms);
 	}
 	
 	public void Signin()

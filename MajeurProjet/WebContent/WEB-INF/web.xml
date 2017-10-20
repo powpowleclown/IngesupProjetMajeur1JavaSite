@@ -20,6 +20,38 @@
     <servlet-name>ServletHome</servlet-name>
     <url-pattern>/Home/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletBackOffice</servlet-name>
+    <servlet-class>com.majeurProjet.controller.ServletBackOffice</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletBackOffice</servlet-name>
+    <url-pattern>/BackOffice/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletBackOfficeComputer</servlet-name>
+    <servlet-class>com.majeurProjet.controller.ServletBackOfficeComputer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletBackOfficeComputer</servlet-name>
+    <url-pattern>/BackOffice/Computer/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletBackOfficeIncident</servlet-name>
+    <servlet-class>com.majeurProjet.controller.ServletBackOfficeIncident</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletBackOfficeIncident</servlet-name>
+    <url-pattern>/BackOffice/Incident/*</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>ServletBackOfficeRoom</servlet-name>
+    <servlet-class>com.majeurProjet.controller.ServletBackOfficeRoom</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletBackOfficeRoom</servlet-name>
+    <url-pattern>/BackOffice/Room/*</url-pattern>
+  </servlet-mapping>
   <filter>
     <filter-name>FilterHibernate</filter-name>
     <filter-class>com.majeurProjet.filters.FilterHibernate</filter-class>

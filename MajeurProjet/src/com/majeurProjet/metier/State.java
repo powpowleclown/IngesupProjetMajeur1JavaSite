@@ -21,9 +21,9 @@ public class State {
 	private String name;
 	@Column(name="table_state")
 	private String table;
-	@ManyToMany(mappedBy = "projects")
+	@ManyToMany(mappedBy = "states")
 	private List<Incident> incidents = new ArrayList<Incident>();
-	@ManyToMany(mappedBy = "projects")
+	@ManyToMany(mappedBy = "states")
 	private List<Computer> computers = new ArrayList<Computer>();
 	public int getId() {
 		return id;

@@ -22,6 +22,7 @@ public class Incident {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(name="id_incident")
 	private int id;
 	@Column(name="number_incident")
 	private String number;
