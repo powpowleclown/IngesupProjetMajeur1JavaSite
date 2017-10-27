@@ -43,7 +43,7 @@ public class FilterLogin implements Filter {
 			HttpServletResponse resp = (HttpServletResponse) response;
 			try {
 				req.getSession().setAttribute("redirect", req.getRequestURI());
-				resp.sendRedirect("Login");
+				resp.sendRedirect("SignIn");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

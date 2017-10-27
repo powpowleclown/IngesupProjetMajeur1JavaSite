@@ -19,22 +19,46 @@ public class UserDAO {
 		return HibernateUtil.getSession().createQuery("from User").getResultList();
 	}
 	
-	public static User Verif(String mail, String pwd)
+	public static User getUserByMailPassword(String mail, String pwd)
 	{
-		User users;
 		try
 		{
-			
-			Query query = HibernateUtil.getSession().createQuery("from User U where U.mail=? AND U.password=?");
-			query.setParameter(0, mail);
-			query.setParameter(1, pwd);
-			users = (User) query.getSingleResult();
+			return (User) HibernateUtil.getSession().createQuery("from User where mail=? and pwd=?")
+					.setParameter(0, mail).setParameter(1, pwd).getSingleResult();
 		}
 		catch(Exception e)
 		{
-			users = null;
+			return null;
 		}
-
-		return users;
 	}
+	
+	public static User getUserByMail(String mail)
+	{
+		try
+		{
+			return (User) HibernateUtil.getSession().createQuery("from User where mail=?")
+					.setParameter(0, mail).getSingleResult();
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+	}
+	
+	
+	public static boolean userAlreadyExists(String email, String password) {
+        if (getUserByMailPassword(email, password) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean passwordCorrespondToUser(String email, String password) {
+        if (getUserByMailPassword(email, password) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
