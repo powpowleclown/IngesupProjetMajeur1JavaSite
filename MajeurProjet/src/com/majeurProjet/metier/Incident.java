@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,11 +30,10 @@ public class Incident {
 	@Column(name="description_incident")
 	private String description;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="id_computer_incident ")
-	private Computer computer;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
-    @JoinTable(name = "historical_i",joinColumns = { @JoinColumn(name = "id_incident_historical_i") },inverseJoinColumns = { @JoinColumn(name = "id_state_historical_i") })
-	private List<State> states = new ArrayList<State>();
+	@JoinColumn(name="id_computer_incident")
+	private Computer computer;  
+	@OneToMany(mappedBy = "incident")
+	private List<HistoricalIncident> historicals_i = new ArrayList<HistoricalIncident>();
 	
 	public int getId() {
 		return id;
@@ -59,10 +59,11 @@ public class Incident {
 	public void setComputer(Computer computer) {
 		this.computer = computer;
 	}
-	public List<State> getStates() {
-		return states;
+	public List<HistoricalIncident> getHistoricals_i() {
+		return historicals_i;
 	}
-	public void setStates(List<State> states) {
-		this.states = states;
+	public void setHistoricals_i(List<HistoricalIncident> historicals_i) {
+		this.historicals_i = historicals_i;
 	}
+
 }

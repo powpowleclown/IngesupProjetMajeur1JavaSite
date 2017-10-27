@@ -20,6 +20,8 @@
 		
 		<!-- <property name="hibernate.hbm2dll.auto">create</property> -->
 		
+		<mapping class="com.majeurProjet.metier.HistoricalComputer"/>
+		<mapping class="com.majeurProjet.metier.HistoricalIncident"/>
 		<mapping class="com.majeurProjet.metier.Incident"/>
 		<mapping class="com.majeurProjet.metier.State"/>
 		<mapping class="com.majeurProjet.metier.Computer"/>

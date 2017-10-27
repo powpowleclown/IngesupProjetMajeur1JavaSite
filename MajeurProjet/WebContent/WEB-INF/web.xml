@@ -44,13 +44,21 @@
     <servlet-name>ServletBackOfficeIncident</servlet-name>
     <url-pattern>/BackOffice/Incident/*</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>ServletBackOfficeRoom</servlet-name>
     <servlet-class>com.majeurProjet.controller.ServletBackOfficeRoom</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ServletBackOfficeRoom</servlet-name>
     <url-pattern>/BackOffice/Room/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletBackOfficeState</servlet-name>
+    <servlet-class>com.majeurProjet.controller.ServletBackOfficeState</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletBackOfficeState</servlet-name>
+    <url-pattern>/BackOffice/State/*</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>FilterHibernate</filter-name>

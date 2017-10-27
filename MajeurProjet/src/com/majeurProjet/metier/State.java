@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,10 +23,10 @@ public class State {
 	private String name;
 	@Column(name="table_state")
 	private String table;
-	@ManyToMany(mappedBy = "states")
-	private List<Incident> incidents = new ArrayList<Incident>();
-	@ManyToMany(mappedBy = "states")
-	private List<Computer> computers = new ArrayList<Computer>();
+	@OneToMany(mappedBy = "state")
+	private List<HistoricalIncident> historicals_i = new ArrayList<HistoricalIncident>();
+	@OneToMany(mappedBy = "state")
+	private List<HistoricalComputer> historicals_c = new ArrayList<HistoricalComputer>();
 	public int getId() {
 		return id;
 	}
@@ -44,16 +45,16 @@ public class State {
 	public void setTable(String table) {
 		this.table = table;
 	}
-	public List<Incident> getIncidents() {
-		return incidents;
+	public List<HistoricalIncident> getHistoricals_i() {
+		return historicals_i;
 	}
-	public void setIncidents(List<Incident> incidents) {
-		this.incidents = incidents;
+	public void setHistoricals_i(List<HistoricalIncident> historicals_i) {
+		this.historicals_i = historicals_i;
 	}
-	public List<Computer> getComputers() {
-		return computers;
+	public List<HistoricalComputer> getHistoricals_c() {
+		return historicals_c;
 	}
-	public void setComputers(List<Computer> computers) {
-		this.computers = computers;
+	public void setHistoricals_c(List<HistoricalComputer> historicals_c) {
+		this.historicals_c = historicals_c;
 	}
 }

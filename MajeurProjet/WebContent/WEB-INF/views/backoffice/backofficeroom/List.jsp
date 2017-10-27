@@ -1,11 +1,25 @@
 <a href = "<c:url value="./AddOrUpdate"></c:url>">Creation</a>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Ip Mask</th>
+    <th>Show</th>
+    <th>Update</th>
+    <th>Delete</th>
+  </tr>
 <c:forEach items="${model}" var="room">
-		<p>${room.name}</p>
-		<p>${room.ipmask}</p>
-		<a href = "<c:url value="./AddOrUpdate">
+	  <tr>
+	    <td>${room.name}</td>
+	    <td>${room.ipmask}</td>
+	    <td><a href = "<c:url value="./Show">
 			<c:param name="id_room" value="${room.getId()}"/>
-		</c:url>">Update</a>
-		<a href = "<c:url value="./Delete">
+		</c:url>">Show</a></td>
+	    <td>		<a href = "<c:url value="./AddOrUpdate">
 			<c:param name="id_room" value="${room.getId()}"/>
-		</c:url>">Delete</a>
+		</c:url>">Update</a></td>
+	    <td><a href = "<c:url value="./Delete">
+			<c:param name="id_room" value="${room.getId()}"/>
+		</c:url>">Delete</a></td>
+	  </tr>
 </c:forEach>
+</table>

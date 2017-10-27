@@ -6,7 +6,6 @@ import org.hibernate.query.Query;
 
 import com.majeurProjet.db.HibernateUtil;
 import com.majeurProjet.metier.Computer;
-import com.majeurProjet.metier.Room;
 
 public class ComputerDAO {
 

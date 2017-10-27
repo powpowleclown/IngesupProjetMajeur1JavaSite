@@ -1,12 +1,16 @@
 <c:choose>
-  <c:when test="${model != null}">
+  <c:when test="${model.get(0) != null}">
     <form method="post" action="#">
 		<label for="name">Name :</label>
-		<input type="text" name="name" id="name" value="${model.getName()}"/>
+		<input type="text" name="name" id="name" value="${model.get(0).name}"/>
 		<label for="ip">Ip :</label>
-		<input type="text" name="ip" id="ip" value="${model.getIp()}"/>
+		<input type="text" name="ip" id="ip" value="${model.get(0).ip}"/>
 		<label for="id_room">Id Room :</label>
-		<input type="text" name="id_room" id="id_room" value="${model.getRoom().getId()}"/>
+		<select name="id_room">
+			<c:forEach items="${model.get(1)}" var="room">
+				<option value="${room.id}" ${room.id == model.get(0).room.id ? 'selected="selected"' :''}>${room.name}</option>
+			</c:forEach>
+		</select>
 		<button type="submit">Envoyer</button>
 	</form>
   </c:when>
@@ -17,7 +21,17 @@
 		<label for="ip">Ip :</label>
 		<input type="text" name="ip" id="ip" />
 		<label for="id_room">Id Room :</label>
-		<input type="text" name="id_room" id="id_room" />
+		<select name="id_room">
+			<c:forEach items="${model.get(1)}" var="room">
+				<option value="${room.id}">${room.name}</option>
+			</c:forEach>
+		</select>
+		<label for="id_state">State :</label>
+		<select name="id_state">
+			<c:forEach items="${model.get(2)}" var="state">
+				<option value="${state.id}" ${state.id == model.get(0).state.id ? 'selected="selected"' :''}>${state.name}</option>
+			</c:forEach>
+		</select>
 		<button type="submit">Envoyer</button>
 	</form>
   </c:otherwise>

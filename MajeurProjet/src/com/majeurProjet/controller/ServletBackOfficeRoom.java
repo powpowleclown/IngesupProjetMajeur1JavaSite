@@ -13,44 +13,55 @@ public class ServletBackOfficeRoom extends ServletBackOffice {
 		List<Room> rooms = RoomDAO.ListRoom();
 		this.displayView(rooms);
 	}
-	//ADD / UPDATE
-		public void AddOrUpdate()
+	//DETAIL
+	public void Show()
+	{
+		Room room = null;
+		Integer id = this.getParamAsInt("id_room");
+		if(id != null)
 		{
-			Room room = null;
-			Integer id = this.getParamAsInt("id_room");
+			room = RoomDAO.getRoom(id);
+		}
+		this.displayView(room);
+	}
+	//ADD / UPDATE
+	public void AddOrUpdate()
+	{
+		Room room = null;
+		Integer id = this.getParamAsInt("id_room");
+		if(id != null)
+		{
+			room = RoomDAO.getRoom(id);
+		}
+		
+		if(this.isPostBack())
+		{
+			Room roomCreateOrUpdate;
 			if(id != null)
 			{
-				room = RoomDAO.getRoom(id);
-			}
-			
-			if(this.isPostBack())
-			{
-				Room roomCreateOrUpdate;
-				if(id != null)
-				{
-					roomCreateOrUpdate = RoomDAO.getRoom(id);
-				}
-				else
-				{
-					roomCreateOrUpdate = new Room();
-				}
-				roomCreateOrUpdate.setIpmask(this.getParam("ipmask"));
-				roomCreateOrUpdate.setName(this.getParam("name"));
-
-				RoomDAO.SaveUpdateRoom(roomCreateOrUpdate);
-				this.redirect("/BackOffice/Room/List");
+				roomCreateOrUpdate = RoomDAO.getRoom(id);
 			}
 			else
 			{
-				this.displayView(room);
+				roomCreateOrUpdate = new Room();
 			}
-		}
-		//DELETE
-		public void Delete()
-		{
-			Integer id = this.getParamAsInt("id_room");
-			Room room = RoomDAO.getRoom(id);
-			RoomDAO.DeleteRoom(room);
+			roomCreateOrUpdate.setIpmask(this.getParam("ipmask"));
+			roomCreateOrUpdate.setName(this.getParam("name"));
+
+			RoomDAO.SaveUpdateRoom(roomCreateOrUpdate);
 			this.redirect("/BackOffice/Room/List");
 		}
+		else
+		{
+			this.displayView(room);
+		}
+	}
+	//DELETE
+	public void Delete()
+	{
+		Integer id = this.getParamAsInt("id_room");
+		Room room = RoomDAO.getRoom(id);
+		RoomDAO.DeleteRoom(room);
+		this.redirect("/BackOffice/Room/List");
+	}
 }
