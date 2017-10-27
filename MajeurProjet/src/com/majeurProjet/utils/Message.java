@@ -8,5 +8,6 @@ public class Message {
 	public static String passwordsNotMatching = "passwords not matching";
 	public static String emailAlreadyUsed = "this email is already used";
 	public static String  emailNotExists = "email not exists";
-	public static String badPassword =  "is not correct password";	
+	public static String badPassword = "password is not correct";
+	public static String badEmailOrPassword = "email or password is incorrect";
 }
