@@ -18,3 +18,8 @@
 	</form>
   </c:otherwise>
 </c:choose>
+
+
+<div>
+    <h2 style="color:red" display="${display}"> ${errorMessage}</h2>
+</div>

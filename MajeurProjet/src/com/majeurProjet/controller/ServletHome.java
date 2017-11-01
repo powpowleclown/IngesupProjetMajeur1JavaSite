@@ -40,7 +40,7 @@ public class ServletHome extends UtilHttpServlet {
 				Role role = RoleDAO.getRoleUser();
 				user.setRole(role);
 				UserDAO.Save(user);
-				this.redirect("/Home/Home");
+				this.redirect("Home");
 			}else {
 				Util.showErrorMessage(this.req, this.errorMessage);
 				this.displayView(null);
@@ -80,7 +80,7 @@ public class ServletHome extends UtilHttpServlet {
 					else
 					{
 						try {
-							this.resp.sendRedirect("Home/Home");
+							this.resp.sendRedirect("Home");
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
