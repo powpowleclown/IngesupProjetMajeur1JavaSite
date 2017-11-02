@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.query.Query;
 
 import com.majeurProjet.db.HibernateUtil;
+import com.majeurProjet.metier.Computer;
 import com.majeurProjet.metier.Incident;
 
 public class IncidentDAO {
@@ -16,6 +17,12 @@ public class IncidentDAO {
 	
 	public static void DeleteIncident(Incident incident)
 	{
+		HibernateUtil.getSession().delete(incident);
+	}
+	
+	public static void DeleteIncidentById(int id_incident)
+	{
+		Incident incident = getIncident(id_incident);
 		HibernateUtil.getSession().delete(incident);
 	}
 	

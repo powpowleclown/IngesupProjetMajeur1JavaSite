@@ -19,6 +19,12 @@ public class StateDAO {
 		HibernateUtil.getSession().delete(state);
 	}
 	
+	public static void DeleteStateById(int id_state)
+	{
+		State state = getState(id_state);
+		HibernateUtil.getSession().delete(state);
+	}
+	
 	public static List<State> ListState()
 	{
 		return HibernateUtil.getSession().createQuery("from State").getResultList();

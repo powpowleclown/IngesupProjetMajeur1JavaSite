@@ -60,14 +60,16 @@ public class ServletBackOfficeComputer extends ServletBackOffice {
 			else
 			{
 				computerCreateOrUpdate = new Computer();
-				HistoricalComputer historical = new HistoricalComputer();
-				historical.setComputer(computerCreateOrUpdate);
-				Calendar calendar = Calendar.getInstance();
-				historical.setDate(new Date(calendar.getTime().getTime()));
-				State state = StateDAO.getState(this.getParamAsInt("id_state"));
-				historical.setState(state);
-				computerCreateOrUpdate.getHistoricals_c().add(historical);
 			}
+			
+			HistoricalComputer historical = new HistoricalComputer();
+			historical.setComputer(computerCreateOrUpdate);
+			Calendar calendar = Calendar.getInstance();
+			historical.setDate(new Date(calendar.getTime().getTime()));
+			State state = StateDAO.getState(this.getParamAsInt("id_state"));
+			historical.setState(state);
+			computerCreateOrUpdate.getHistoricals_c().add(historical);
+			
 			computerCreateOrUpdate.setIp(this.getParam("ip"));
 			computerCreateOrUpdate.setName(this.getParam("name"));
 			Room room = RoomDAO.getRoom(this.getParamAsInt("id_room"));

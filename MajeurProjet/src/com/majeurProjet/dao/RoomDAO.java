@@ -19,6 +19,12 @@ public class RoomDAO {
 		HibernateUtil.getSession().delete(room);
 	}
 	
+	public static void DeleteRoomById(int id_room)
+	{
+		Room room = getRoom(id_room);
+		HibernateUtil.getSession().delete(room);
+	}
+	
 	public static List<Room> ListRoom()
 	{
 		return HibernateUtil.getSession().createQuery("FROM Room").getResultList();

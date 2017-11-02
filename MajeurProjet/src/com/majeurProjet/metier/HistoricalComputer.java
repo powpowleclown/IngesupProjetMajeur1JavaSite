@@ -1,5 +1,6 @@
 package com.majeurProjet.metier;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -16,13 +17,15 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "historical_c")
-public class HistoricalComputer {
+public class HistoricalComputer implements Serializable{
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name="id_historical_c")
 	private int id;
 	@Column(name="date_historical_c")
 	private Date date;
+	
+	private String note;
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_computer_historical_c")
 	private Computer computer;
@@ -42,7 +45,13 @@ public class HistoricalComputer {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
+	
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
 	public Computer getComputer() {
 		return computer;
 	}

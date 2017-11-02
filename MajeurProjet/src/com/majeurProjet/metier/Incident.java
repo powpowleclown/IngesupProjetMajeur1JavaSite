@@ -1,6 +1,9 @@
 package com.majeurProjet.metier;
 
+import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -19,7 +22,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name ="incident")
-public class Incident {
+public class Incident implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -32,7 +35,7 @@ public class Incident {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="id_computer_incident")
 	private Computer computer;  
-	@OneToMany(mappedBy = "incident")
+	@OneToMany(mappedBy = "incident", cascade=CascadeType.ALL)
 	private List<HistoricalIncident> historicals_i = new ArrayList<HistoricalIncident>();
 	
 	public int getId() {
@@ -61,6 +64,11 @@ public class Incident {
 	}
 	public List<HistoricalIncident> getHistoricals_i() {
 		return historicals_i;
+	}
+	public State getLastHistoricals_iState()
+	{
+		getHistoricals_i().sort(Comparator.comparing(HistoricalIncident::getDate));
+		return getHistoricals_i().get(0).getState();
 	}
 	public void setHistoricals_i(List<HistoricalIncident> historicals_i) {
 		this.historicals_i = historicals_i;

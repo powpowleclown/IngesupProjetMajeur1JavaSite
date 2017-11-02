@@ -1,5 +1,6 @@
 package com.majeurProjet.metier;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.AssociationOverride;
@@ -19,7 +20,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "historical_i")
-public class HistoricalIncident {
+public class HistoricalIncident implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)

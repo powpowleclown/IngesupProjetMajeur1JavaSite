@@ -38,7 +38,7 @@ public class ServletHome extends UtilHttpServlet {
 				user.setSurname(this.getParam("surname"));
 				Role role = RoleDAO.getRoleUser();
 				user.setRole(role);
-				UserDAO.Save(user);
+				UserDAO.SaveUpdateUser(user);
 				this.redirect("/Home/Home");
 			}else {
 				Util.showErrorMessage(this.req, this.errorMessage);
