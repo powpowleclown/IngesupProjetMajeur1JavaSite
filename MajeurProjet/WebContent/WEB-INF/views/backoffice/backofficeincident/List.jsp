@@ -4,6 +4,7 @@
     <th>Number</th>
     <th>Description</th>
     <th>Computer</th>
+    <th>State</th>
     <th>Show</th>
     <th>Update</th>
     <th>Delete</th>   
@@ -13,6 +14,7 @@
 	    <td>${incident.number}</td>
 	    <td>${incident.description}</td>
 	    <td>${incident.computer.name}</td>
+	    <td>${incident.getLastHistoricals_iState().name}</td>
 	    <td><a href = "<c:url value="./Show">
 			<c:param name="id_incident" value="${incident.id}"/>
 		</c:url>">Show</a></td>

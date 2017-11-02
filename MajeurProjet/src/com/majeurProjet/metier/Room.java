@@ -1,5 +1,6 @@
 package com.majeurProjet.metier;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name ="room")
-public class Room {
+public class Room implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)

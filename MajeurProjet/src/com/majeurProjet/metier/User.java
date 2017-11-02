@@ -1,5 +1,7 @@
 package com.majeurProjet.metier;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name ="user")
-public class User {
+public class User implements Serializable{
 	
 	@Id
 	@Column(name = "id_user")

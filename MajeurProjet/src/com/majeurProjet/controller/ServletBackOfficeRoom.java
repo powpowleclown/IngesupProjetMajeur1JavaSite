@@ -1,12 +1,15 @@
 package com.majeurProjet.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import com.majeurProjet.dao.RoomDAO;
 import com.majeurProjet.metier.Room;
+import com.majeurProjet.utils.Message;
+import com.majeurProjet.utils.Util;
 
 public class ServletBackOfficeRoom extends ServletBackOffice {
 
-	
+	private String errorMessage = "";
 	//LIST
 	public void List()
 	{
@@ -36,23 +39,35 @@ public class ServletBackOfficeRoom extends ServletBackOffice {
 		
 		if(this.isPostBack())
 		{
-			Room roomCreateOrUpdate;
+			Room roomToCreateOrUpdate;
 			if(id != null)
 			{
-				roomCreateOrUpdate = RoomDAO.getRoom(id);
+				roomToCreateOrUpdate = RoomDAO.getRoom(id);
+				if(!this.updateFieldsAreCorrect(id)) {
+					Util.showErrorMessage(this.req, this.errorMessage);
+					this.displayView(roomToCreateOrUpdate);
+					return;
+				}
 			}
 			else
 			{
-				roomCreateOrUpdate = new Room();
+				roomToCreateOrUpdate = new Room();
+				if(!this.addFieldsAreCorrect()) {
+					Util.showErrorMessage(this.req, this.errorMessage);
+					this.displayView(null);
+					return;
+				}
 			}
-			roomCreateOrUpdate.setIpmask(this.getParam("ipmask"));
-			roomCreateOrUpdate.setName(this.getParam("name"));
+			
+			roomToCreateOrUpdate.setIpmask(this.getParam("ipmask"));
+			roomToCreateOrUpdate.setName(this.getParam("name"));
 
-			RoomDAO.SaveUpdateRoom(roomCreateOrUpdate);
+			RoomDAO.SaveUpdateRoom(roomToCreateOrUpdate);
 			this.redirect("/BackOffice/Room/List");
 		}
 		else
 		{
+			Util.hideErrorMessage(this.req);
 			this.displayView(room);
 		}
 	}
@@ -63,5 +78,52 @@ public class ServletBackOfficeRoom extends ServletBackOffice {
 		Room room = RoomDAO.getRoom(id);
 		RoomDAO.DeleteRoom(room);
 		this.redirect("/BackOffice/Room/List");
+	}
+	
+	private boolean addFieldsAreCorrect() {
+		String ipMask = this.getParam("ipmask");
+		String name = this.getParam("name");
+		String[] params = {ipMask, name};
+		if(Util.aFieldIsEmpty(params)) {
+			this.errorMessage = Message.fieldIsincorrectOrMissing;
+			return false;
+		}
+		else if(RoomDAO.roomNameAlreadyExists(name)) {
+			this.errorMessage = Message.nameAlreadyUsed;
+			return false;
+		}
+		else if (RoomDAO.roomIpAlreadyExists(ipMask)) {
+			this.errorMessage = Message.ipAlreadyUsed;
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean updateFieldsAreCorrect(int id) {
+		String ipMask = this.getParam("ipmask");
+		String name = this.getParam("name");
+		String[] params = {ipMask, name};
+		if(Util.aFieldIsEmpty(params)) {
+			this.errorMessage = Message.fieldIsincorrectOrMissing;
+			return false;
+		}
+		Room room = RoomDAO.getRoomByName(name);
+		if(room != null) {
+			System.out.println(room.getName());
+			if(name.equals(room.getName()) && id != room.getId()) {
+				this.errorMessage = Message.nameAlreadyUsed;
+				return false;
+			}
+		}
+		
+		room = RoomDAO.getRoomByIp(ipMask);
+		if(room != null) {
+			if (ipMask.equals(room.getIpmask()) && id != room.getId()) {
+				this.errorMessage = Message.ipAlreadyUsed;
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }

@@ -12,6 +12,9 @@
       <include-coda>/WEB-INF/includes/footer.jsp</include-coda>
     </jsp-property-group>
   </jsp-config>
+  
+
+  
   <servlet>
     <servlet-name>ServletHome</servlet-name>
     <servlet-class>com.majeurProjet.controller.ServletHome</servlet-class>
@@ -59,7 +62,24 @@
   <servlet-mapping>
     <servlet-name>ServletBackOfficeState</servlet-name>
     <url-pattern>/BackOffice/State/*</url-pattern>
+  </servlet-mapping>  
+    <servlet>
+    <servlet-name>ServletBackOfficeUser</servlet-name>
+    <servlet-class>com.majeurProjet.controller.ServletBackOfficeUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletBackOfficeUser</servlet-name>
+    <url-pattern>/BackOffice/User/*</url-pattern>
+  </servlet-mapping> 
+    <servlet>
+    <servlet-name>ServletBackOfficeRole</servlet-name>
+    <servlet-class>com.majeurProjet.controller.ServletBackOfficeRole</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletBackOfficeRole</servlet-name>
+    <url-pattern>/BackOffice/Role/*</url-pattern>
   </servlet-mapping>
+  
   <filter>
     <filter-name>FilterHibernate</filter-name>
     <filter-class>com.majeurProjet.filters.FilterHibernate</filter-class>

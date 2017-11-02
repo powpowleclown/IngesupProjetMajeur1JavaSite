@@ -19,6 +19,12 @@ public class ComputerDAO {
 		HibernateUtil.getSession().delete(computer);
 	}
 	
+	public static void DeleteComputerById(int id_computer)
+	{
+		Computer computer = getComputer(id_computer);
+		HibernateUtil.getSession().delete(computer);
+	}
+	
 	public static List<Computer> ListComputer()
 	{
 		return HibernateUtil.getSession().createQuery("from Computer").getResultList();

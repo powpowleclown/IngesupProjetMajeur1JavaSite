@@ -1,6 +1,8 @@
 package com.majeurProjet.metier;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,15 +13,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name ="computer")
-public class Computer {
+public class Computer implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public class Computer {
 	private Room room;
 	@OneToMany(mappedBy = "computer", cascade = CascadeType.ALL)
 	private List<Incident> incidents = new ArrayList<Incident>();
-	@OneToMany(mappedBy = "computer")
+	@OneToMany(mappedBy = "computer", cascade=CascadeType.ALL)
 	private List<HistoricalComputer> historicals_c = new ArrayList<HistoricalComputer>();
 
 
@@ -82,6 +82,12 @@ public class Computer {
 		return historicals_c;
 	}
 
+	public State getLastHistoricals_cState()
+	{
+		getHistoricals_c().sort(Comparator.comparing(HistoricalComputer::getDate));
+		return getHistoricals_c().get(0).getState();
+	}
+	
 	public void setHistoricals_c(List<HistoricalComputer> historicals_c) {
 		this.historicals_c = historicals_c;
 	}

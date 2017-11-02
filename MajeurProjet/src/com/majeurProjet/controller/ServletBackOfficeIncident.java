@@ -7,10 +7,12 @@ import java.util.List;
 
 import com.majeurProjet.dao.ComputerDAO;
 import com.majeurProjet.dao.IncidentDAO;
+import com.majeurProjet.dao.RoomDAO;
 import com.majeurProjet.dao.StateDAO;
 import com.majeurProjet.metier.Computer;
 import com.majeurProjet.metier.HistoricalIncident;
 import com.majeurProjet.metier.Incident;
+import com.majeurProjet.metier.Room;
 import com.majeurProjet.metier.State;
 
 public class ServletBackOfficeIncident extends ServletBackOffice {
@@ -55,14 +57,16 @@ public class ServletBackOfficeIncident extends ServletBackOffice {
 			else
 			{
 				incidentCreateOrUpdate = new Incident();
-				HistoricalIncident historical = new HistoricalIncident();
-				historical.setIncident(incidentCreateOrUpdate);
-				Calendar calendar = Calendar.getInstance();
-				historical.setDate(new Date(calendar.getTime().getTime()));
-				State state = StateDAO.getState(this.getParamAsInt("id_state"));
-				historical.setState(state);
-				incidentCreateOrUpdate.getHistoricals_i().add(historical);
 			}
+	
+			HistoricalIncident historical = new HistoricalIncident();
+			historical.setIncident(incidentCreateOrUpdate);
+			Calendar calendar = Calendar.getInstance();
+			historical.setDate(new Date(calendar.getTime().getTime()));
+			State state = StateDAO.getState(this.getParamAsInt("id_state"));
+			historical.setState(state);
+			incidentCreateOrUpdate.getHistoricals_i().add(historical);
+			
 			incidentCreateOrUpdate.setNumber(this.getParam("number"));
 			incidentCreateOrUpdate.setDescription(this.getParam("description"));
 			Computer computer = ComputerDAO.getComputer(this.getParamAsInt("id_computer"));
@@ -82,9 +86,13 @@ public class ServletBackOfficeIncident extends ServletBackOffice {
 		}
 	}
 	//DELETE
-	public void Delete(Incident incident)
+	public void Delete()
 	{
+		Integer id = this.getParamAsInt("id_incident");
+		Incident incident = IncidentDAO.getIncident(id);
 		IncidentDAO.DeleteIncident(incident);
+		this.redirect("/BackOffice/Incident/List");
+		
 	}
 
 }
