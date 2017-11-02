@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.query.Query;
 
 import com.majeurProjet.db.HibernateUtil;
+import com.majeurProjet.metier.Room;
 import com.majeurProjet.metier.State;
 
 public class StateDAO {
@@ -69,5 +70,25 @@ public class StateDAO {
 		Query query = HibernateUtil.getSession().createQuery("FROM State C WHERE C.table=?");
 		query.setParameter(0, table_state);
 		return query.getResultList();
+	}
+	
+	public static State getStateByName(String name) {
+		try
+		{
+			return (State) HibernateUtil.getSession().createQuery("FROM State where name=?")
+					.setParameter(0, name).getSingleResult();
+		}
+		catch(Exception e)
+		{
+			return null;
+		}	
+	}
+	
+	public static boolean stateAlreadyExists(String name, String table) {
+		if(getStateByNameAndTable(name, table) != null) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }
