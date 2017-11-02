@@ -6,6 +6,7 @@ import org.hibernate.query.Query;
 
 import com.majeurProjet.db.HibernateUtil;
 import com.majeurProjet.metier.Room;
+import com.majeurProjet.metier.User;
 
 public class RoomDAO {
 
@@ -45,5 +46,45 @@ public class RoomDAO {
 		}
 
 		return room;
+	}
+	
+	public static Room getRoomByName(String name) {
+		try
+		{
+			return (Room) HibernateUtil.getSession().createQuery("FROM Room where name=?")
+					.setParameter(0, name).getSingleResult();
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+	}
+	
+	public static Room getRoomByIp(String ip) {
+		try
+		{
+			return (Room) HibernateUtil.getSession().createQuery("FROM Room where ipmask=?")
+					.setParameter(0, ip).getSingleResult();
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+	}
+	
+	public static boolean roomNameAlreadyExists(String name) {
+		if(getRoomByName(name) != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public static boolean roomIpAlreadyExists(String ip) {
+		if(getRoomByIp(ip) != null) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

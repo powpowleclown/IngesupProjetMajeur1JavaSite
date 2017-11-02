@@ -2,6 +2,7 @@ package com.majeurProjet.controller;
 
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -39,7 +40,7 @@ public class ServletHome extends UtilHttpServlet {
 				Role role = RoleDAO.getRoleUser();
 				user.setRole(role);
 				UserDAO.SaveUpdateUser(user);
-				this.redirect("/Home/Home");
+				this.redirect("Home");
 			}else {
 				Util.showErrorMessage(this.req, this.errorMessage);
 				this.displayView(null);
@@ -64,10 +65,11 @@ public class ServletHome extends UtilHttpServlet {
 				{
 					HttpSession session = this.req.getSession();
 					session.setAttribute("userlog", userLog);
-					String redirect = (String) req.getSession().getAttribute("redirect").toString();
+					String redirect = (String) req.getSession().getAttribute("redirect");
 					if(redirect != null)
 					{
 						try {
+							redirect = redirect.toString();
 							this.resp.sendRedirect(redirect);
 							return;
 						} catch (IOException e) {
@@ -78,8 +80,7 @@ public class ServletHome extends UtilHttpServlet {
 					else
 					{
 						try {
-							this.resp.sendRedirect("Home/Home");
-							System.out.print("signIn");
+							this.resp.sendRedirect("Home");
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -142,7 +143,7 @@ public class ServletHome extends UtilHttpServlet {
     }
 
     private boolean signInFieldsAreCorrect(String encryptedPassword) {
-        String email = this.getParam("email");
+        String email = this.getParam("mail");
         String password = this.getParam("password");
         String[] params = {email, password};
         if (encryptedPassword == null) {
@@ -152,11 +153,8 @@ public class ServletHome extends UtilHttpServlet {
         	if (Util.aFieldIsEmpty(params)) {
                 this.errorMessage = Message.fieldIsincorrectOrMissing;
                 return false;
-            } else if (!UserDAO.userAlreadyExists(email, password)) {
-                this.errorMessage = Message.emailNotExists;
-                return false;
-            } else if (!UserDAO.passwordCorrespondToUser(email, encryptedPassword)) {
-                this.errorMessage = Message.badPassword;
+            } else if (!UserDAO.userAlreadyExists(email, encryptedPassword)) {
+                this.errorMessage = Message.badEmailOrPassword;
                 return false;
             } else {
                 return true;
