@@ -6,7 +6,7 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost/master?autoReconect=true</property>
+		<property name="connection.url">jdbc:mysql://localhost/majeur_projet?autoReconect=true</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">root</property>
 			
