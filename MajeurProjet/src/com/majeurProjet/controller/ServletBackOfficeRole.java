@@ -16,8 +16,11 @@ import com.majeurProjet.metier.Role;
 import com.majeurProjet.metier.Room;
 import com.majeurProjet.metier.State;
 import com.majeurProjet.metier.User;
+import com.majeurProjet.utils.Message;
+import com.majeurProjet.utils.Util;
 
 public class ServletBackOfficeRole extends ServletBackOffice {
+	
 
 	//LIST
 	public void List()
@@ -52,10 +55,20 @@ public class ServletBackOfficeRole extends ServletBackOffice {
 			if(id != null)
 			{
 				roleCreateOrUpdate = RoleDAO.getRole(id);
+				if(!this.updateFieldsAreCorrect(id)) {
+					Util.showErrorMessage(this.req, Util.errorMessage);
+					this.displayView(roleCreateOrUpdate);
+					return;
+				}
 			}
 			else
 			{
 				roleCreateOrUpdate = new Role();
+				if(!this.addFieldsAreCorrect()) {
+					Util.showErrorMessage(this.req, Util.errorMessage);
+					this.displayView(null);
+					return;
+				}
 			}
 			
 			roleCreateOrUpdate.setName(this.getParam("name"));
@@ -75,5 +88,38 @@ public class ServletBackOfficeRole extends ServletBackOffice {
 		Role role = RoleDAO.getRole(id);
 		RoleDAO.DeleteRole(role);
 		this.redirect("/BackOffice/Role/List");
+	}
+	
+	private boolean addFieldsAreCorrect() {
+		String name = this.getParam("name");
+		String role = this.getParam("role");
+		String[] params = {name, role};
+		if(Util.aFieldIsEmpty(params)) {
+			Util.errorMessage = Message.fieldIsincorrectOrMissing;
+			return false;
+		}
+		if(RoleDAO.roleNameAlreadyExists(name)) {
+			Util.errorMessage = Message.nameAlreadyUsed;
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean updateFieldsAreCorrect(int id) {
+		String name = this.getParam("name");
+		String role = this.getParam("role");
+		String[] params = {name, role};
+		if(Util.aFieldIsEmpty(params)) {
+			Util.errorMessage = Message.fieldIsincorrectOrMissing;
+			return false;
+		}
+		Role roleObject = RoleDAO.getRoleByName(name);
+		if(roleObject != null) {
+			if(name.equals(roleObject.getName()) && id != roleObject.getId()) {
+				Util.errorMessage = Message.nameAlreadyUsed;
+				return false;
+			}
+		}
+		return true;
 	}
 }

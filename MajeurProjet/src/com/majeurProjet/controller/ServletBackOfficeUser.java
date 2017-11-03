@@ -16,6 +16,8 @@ import com.majeurProjet.metier.Role;
 import com.majeurProjet.metier.Room;
 import com.majeurProjet.metier.State;
 import com.majeurProjet.metier.User;
+import com.majeurProjet.utils.Message;
+import com.majeurProjet.utils.Util;
 
 public class ServletBackOfficeUser extends ServletBackOffice {
 
@@ -51,17 +53,33 @@ public class ServletBackOfficeUser extends ServletBackOffice {
 		if(this.isPostBack())
 		{
 			User userCreateOrUpdate;
+			String encryptedPassword = Util.encryptPassword(this.getParam("password"));
 			if(id != null)
 			{
 				userCreateOrUpdate = UserDAO.getUser(id);
+				if(!updateFieldsAreCorrect(id, encryptedPassword)) {
+					Util.showErrorMessage(this.req, Util.errorMessage);
+					model.add(user);
+					model.add(roles);
+					this.displayView(model);
+					return;
+				}else {
+					userCreateOrUpdate.setPwd(userCreateOrUpdate.getPwd());
+				}
 			}
 			else
 			{
 				userCreateOrUpdate = new User();
+				if(!addFieldsAreCorrect(encryptedPassword)) {
+					Util.showErrorMessage(this.req, Util.errorMessage);
+					this.displayView(null);
+					return;
+				}else {
+					userCreateOrUpdate.setPwd(encryptedPassword);
+				}
 			}			
 			
 			userCreateOrUpdate.setMail(this.getParam("mail"));
-			userCreateOrUpdate.setPwd(this.getParam("pwd"));
 			userCreateOrUpdate.setSurname(this.getParam("surname"));
 			userCreateOrUpdate.setName(this.getParam("name"));
 			Role role = RoleDAO.getRole(this.getParamAsInt("id_role"));
@@ -83,5 +101,38 @@ public class ServletBackOfficeUser extends ServletBackOffice {
 		User user = UserDAO.getUser(id);
 		UserDAO.DeleteUser(user);
 		this.redirect("/BackOffice/User/List");
+	}
+	
+	private boolean updateFieldsAreCorrect(int id, String encryptedPassword) {
+		String firstname = this.getParam("name");
+        String surname = this.getParam("surname");
+        String email = this.getParam("mail");
+        if (encryptedPassword == null) {
+        	Util.errorMessage = Message.failedToConnect;
+        	return false;
+        }else {
+        	String[] paramsName = {firstname, surname, email};
+            if (Util.aFieldIsEmpty(paramsName)) {
+                Util.errorMessage = Message.fieldIsincorrectOrMissing;
+                return false;
+
+            }
+            User user = UserDAO.getUserByMail(email);
+            if (email.equals(user.getMail()) && id != user.getId()) {
+                Util.errorMessage = Message.emailAlreadyUsed;
+                return false;
+            } 
+            return true;
+            
+        }	
+	}
+	
+	private boolean addFieldsAreCorrect(String encryptedPassword) {
+		String firstname = this.getParam("name");
+        String surname = this.getParam("surname");
+        String email = this.getParam("mail");
+        String password = this.getParam("password");
+        String confirm_password = this.getParam("confirm-password");
+        return Util.addFieldsAreCorrect(encryptedPassword, firstname, surname, email, password, confirm_password);
 	}
 }

@@ -18,7 +18,6 @@ import com.majeurProjet.utils.Util;
 
 public class ServletHome extends UtilHttpServlet {
 	
-	private String errorMessage = "";
 	
 	public void Home()
 	{
@@ -40,9 +39,9 @@ public class ServletHome extends UtilHttpServlet {
 				Role role = RoleDAO.getRoleUser();
 				user.setRole(role);
 				UserDAO.SaveUpdateUser(user);
-				this.redirect("Home");
+				this.redirect("/Home/Home");
 			}else {
-				Util.showErrorMessage(this.req, this.errorMessage);
+				Util.showErrorMessage(this.req, Util.errorMessage);
 				this.displayView(null);
 			}
 		}
@@ -92,7 +91,7 @@ public class ServletHome extends UtilHttpServlet {
 				}
 			
 			}else{
-				Util.showErrorMessage(this.req, this.errorMessage);
+				Util.showErrorMessage(this.req, Util.errorMessage);
 				this.displayView(null);;
 			}
 		}else{
@@ -118,43 +117,23 @@ public class ServletHome extends UtilHttpServlet {
         String email = this.getParam("mail");
         String password = this.getParam("password");
         String confirm_password = this.getParam("confirm-password");
-        System.out.println(UserDAO.getUserByMailPassword(email, encryptedPassword));
-        if (encryptedPassword == null) {
-        	this.errorMessage = Message.failedToConnect;
-        	return false;
-        }else {
-        	String[] paramsName = {firstname, surname, email, password, confirm_password};
-            if (Util.aFieldIsEmpty(paramsName)) {
-                this.errorMessage = Message.fieldIsincorrectOrMissing;
-                return false;
-
-            } else if (!Util.isSamePasswords(password, confirm_password)) {
-                this.errorMessage = Message.passwordsNotMatching;
-                return false;
-            } else if (UserDAO.userAlreadyExists(email, encryptedPassword)) {
-                this.errorMessage = Message.emailAlreadyUsed;
-                return false;
-            } else {
-                return true;
-            }
-        }
-
+        return Util.addFieldsAreCorrect(encryptedPassword, firstname, surname, email, password, confirm_password);
         
     }
-
+    
     private boolean signInFieldsAreCorrect(String encryptedPassword) {
         String email = this.getParam("mail");
         String password = this.getParam("password");
         String[] params = {email, password};
         if (encryptedPassword == null) {
-        	this.errorMessage = Message.failedToConnect;
+        	Util.errorMessage = Message.failedToConnect;
         	return false;
         }else {
         	if (Util.aFieldIsEmpty(params)) {
-                this.errorMessage = Message.fieldIsincorrectOrMissing;
+                Util.errorMessage = Message.fieldIsincorrectOrMissing;
                 return false;
             } else if (!UserDAO.userAlreadyExists(email, encryptedPassword)) {
-                this.errorMessage = Message.badEmailOrPassword;
+                Util.errorMessage = Message.badEmailOrPassword;
                 return false;
             } else {
                 return true;
@@ -162,4 +141,7 @@ public class ServletHome extends UtilHttpServlet {
         }
         
     }
+    
+    
+    
 }

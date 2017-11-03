@@ -82,12 +82,15 @@ public class UserDAO {
             return false;
         }
     }
+	
+	public static boolean userEmailAlreadyExists(String email) {
+		if(getUserByMail(email) != null) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
 
-    public static boolean passwordCorrespondToUser(String email, String password) {
-        if (getUserByMailPassword(email, password) != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+  
 }
