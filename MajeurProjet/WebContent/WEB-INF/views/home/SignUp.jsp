@@ -7,13 +7,13 @@
 		<div class="top-row">
 			<div class="field-wrap">
 				<label> First Name<span class="req">*</span>
-				</label> <input type="text" id="surname" name="surname" required
+				</label> <input type="text" id="name" name="name" required
 					autocomplete="off" />
 			</div>
 
 			<div class="field-wrap">
 				<label> Last Name<span class="req">*</span>
-				</label> <input type="text" name="name" id="name" required
+				</label> <input type="text" name="surname" id="surname" required
 					autocomplete="off" />
 			</div>
 		</div>
@@ -26,13 +26,13 @@
 
 		<div class="field-wrap">
 			<label> Set A Password<span class="req">*</span>
-			</label> <input type="password" name="pwd" id="pwd" required
+			</label> <input type="password" name="password" id="password" required
 				autocomplete="off" />
 		</div>
 
 		<div class="field-wrap">
 			<label> Confirm Password<span class="req">*</span>
-			</label> <input type="password" name="confpwd" id="confpwd" required
+			</label> <input type="password" name="confirm-password" id="confirm-password" required
 				autocomplete="off" />
 		</div>
 		<button type="submit" class="button button-block" />

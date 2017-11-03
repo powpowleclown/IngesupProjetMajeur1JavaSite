@@ -5,11 +5,16 @@
 		<li class="tab active"><a href="#signup">Sign Up</a></li>
 		<li class="tab"><a href="#login">Log In</a></li>
 	</ul>
-			      <p>Document content goes here...</p>
+	
+	<p>Document content goes here...</p>
 	
 	<div class="form">
 		<div class="tab-content">
-		<iframe src = "./html/SignIn.jsp" width = "555" height = "200">
+		<iframe src = "./home/" width = "555" height = "200">
+         Sorry your browser does not support inline frames.
+      </iframe><div class="tab-content">
+      
+		<iframe src = "" width = "555" height = "200">
          Sorry your browser does not support inline frames.
       </iframe>
       </div>
