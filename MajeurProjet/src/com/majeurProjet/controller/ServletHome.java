@@ -26,6 +26,11 @@ public class ServletHome extends UtilHttpServlet {
 		this.displayView(rooms);
 	}
 	
+	public void Connection()
+	{
+		this.displayView(null);
+	}
+	
 	public void SignUp()
 	{
 		if(this.isPostBack())

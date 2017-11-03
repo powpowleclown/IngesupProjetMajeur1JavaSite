@@ -45,7 +45,7 @@ public class ServletBackOfficeRoom extends ServletBackOffice {
 				roomToCreateOrUpdate = RoomDAO.getRoom(id);
 				if(!this.updateFieldsAreCorrect(id)) {
 					Util.showErrorMessage(this.req, this.errorMessage);
-					this.displayView(null);
+					this.displayView(roomToCreateOrUpdate);
 					return;
 				}
 			}
@@ -84,7 +84,6 @@ public class ServletBackOfficeRoom extends ServletBackOffice {
 		String ipMask = this.getParam("ipmask");
 		String name = this.getParam("name");
 		String[] params = {ipMask, name};
-		System.out.println(Arrays.toString(params));
 		if(Util.aFieldIsEmpty(params)) {
 			this.errorMessage = Message.fieldIsincorrectOrMissing;
 			return false;
@@ -110,7 +109,8 @@ public class ServletBackOfficeRoom extends ServletBackOffice {
 		}
 		Room room = RoomDAO.getRoomByName(name);
 		if(room != null) {
-			if(name == room.getName() && id != room.getId()) {
+			System.out.println(room.getName());
+			if(name.equals(room.getName()) && id != room.getId()) {
 				this.errorMessage = Message.nameAlreadyUsed;
 				return false;
 			}
@@ -118,7 +118,7 @@ public class ServletBackOfficeRoom extends ServletBackOffice {
 		
 		room = RoomDAO.getRoomByIp(ipMask);
 		if(room != null) {
-			if (ipMask == room.getIpmask() && id != room.getId()) {
+			if (ipMask.equals(room.getIpmask()) && id != room.getId()) {
 				this.errorMessage = Message.ipAlreadyUsed;
 				return false;
 			}

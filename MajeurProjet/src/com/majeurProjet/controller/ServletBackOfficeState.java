@@ -8,8 +8,12 @@ import com.majeurProjet.dao.StateDAO;
 import com.majeurProjet.metier.Computer;
 import com.majeurProjet.metier.Room;
 import com.majeurProjet.metier.State;
+import com.majeurProjet.utils.Message;
+import com.majeurProjet.utils.Util;
 
 public class ServletBackOfficeState extends ServletBackOffice {
+	
+	private String errorMessage = "";
 
 	//LIST
 	public void List()
@@ -44,10 +48,20 @@ public class ServletBackOfficeState extends ServletBackOffice {
 			if(id != null)
 			{
 				stateCreateOrUpdate = StateDAO.getState(id);
+				if (!this.updateFieldsAreCorrect(id)) {
+					Util.showErrorMessage(this.req, this.errorMessage);
+					this.displayView(stateCreateOrUpdate);
+					return;
+				}
 			}
 			else
 			{
 				stateCreateOrUpdate = new State();
+				if (!this.addFieldsAreCorrect()) {
+					Util.showErrorMessage(this.req, this.errorMessage);
+					this.displayView(null);
+					return;
+				}
 			}
 			stateCreateOrUpdate.setName(this.getParam("name"));
 			stateCreateOrUpdate.setTable(this.getParam("table"));
@@ -56,6 +70,7 @@ public class ServletBackOfficeState extends ServletBackOffice {
 		}
 		else
 		{
+			Util.hideErrorMessage(this.req);
 			this.displayView(state);
 		}
 	}
@@ -66,5 +81,38 @@ public class ServletBackOfficeState extends ServletBackOffice {
 		State state = StateDAO.getState(id);
 		StateDAO.DeleteState(state);
 		this.redirect("/BackOffice/State/List");
+	}
+	
+	public boolean updateFieldsAreCorrect(int id) {
+		String name = this.getParam("name");
+		String table = this.getParam("table");
+		String[] params = {name, table};
+		if(Util.aFieldIsEmpty(params)) {
+			this.errorMessage = Message.fieldIsincorrectOrMissing;
+			return false;
+		}
+		State state = StateDAO.getStateByNameAndTable(name, table);
+		if(state != null) {
+			if(name.equals(state.getName()) && table.equals(state.getTable()) && id != state.getId()) {
+				this.errorMessage = Message.nameAlreadyUsed;
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean addFieldsAreCorrect() {
+		String name = this.getParam("name");
+		String table = this.getParam("table");
+		String[] params = {name, table};
+		if(Util.aFieldIsEmpty(params)) {
+			this.errorMessage = Message.fieldIsincorrectOrMissing;
+			return false;
+		}
+		if(StateDAO.stateAlreadyExists(name, table)) {
+			this.errorMessage = Message.nameAlreadyUsed;
+			return false;
+		}
+		return true;
 	}
 }
