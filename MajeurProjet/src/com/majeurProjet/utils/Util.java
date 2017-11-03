@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 public class Util {
 	//This class is used for generic function, parameters etc...
@@ -37,6 +38,7 @@ public class Util {
         req.setAttribute("display", "none");
         req.setAttribute("errorMessage", "");
     }
+
     
     public static String encryptPassword(String password) {
     	MessageDigest digest;

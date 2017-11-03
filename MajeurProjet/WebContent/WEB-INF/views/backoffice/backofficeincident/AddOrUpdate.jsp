@@ -1,6 +1,6 @@
 <c:choose>
   <c:when test="${model.get(0) != null}">
-    <form method="post" action="#">
+    <form method="post" action="#" class="form">
 		<label for="number">Number :</label>
 		<input type="text" name="number" id="number" value="${model.get(0).number}"/>
 		<label for="description">Description :</label>
@@ -23,7 +23,7 @@
 	</form>
   </c:when>
   <c:otherwise>
-   <form method="post" action="#">
+   <form method="post" action="#" class="form">
 		<label for="number">Number :</label>
 		<input type="text" name="number" id="number"/>
 		<label for="description">Description :</label>
