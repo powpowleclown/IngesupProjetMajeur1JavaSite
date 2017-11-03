@@ -25,6 +25,7 @@
 		<mapping class="com.majeurProjet.metier.Incident"/>
 		<mapping class="com.majeurProjet.metier.State"/>
 		<mapping class="com.majeurProjet.metier.Computer"/>
+		<mapping class="com.majeurProjet.metier.ComputerData"/>
 		<mapping class="com.majeurProjet.metier.Room"/>
 		<mapping class="com.majeurProjet.metier.Role"/>
 		<mapping class="com.majeurProjet.metier.User"/>

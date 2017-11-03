@@ -15,23 +15,23 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.majeurProjet.dao.ComputerDAO;
+import com.majeurProjet.dao.ComputerDataDAO;
 import com.majeurProjet.dao.RoleDAO;
-import com.majeurProjet.dao.RoomDAO;
+import com.majeurProjet.metier.Computer;
+import com.majeurProjet.metier.ComputerData;
 import com.majeurProjet.metier.Role;
-import com.majeurProjet.metier.Room;
 
 
-
-
-@Path("/room_rest")
-public class RoomRest {
+@Path("/computerdata_rest")
+public class ComputerDataRest {
 
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getMesRessources() {
 		// le service retourne une liste de ressoure List et un code HTTP 200
-		GenericEntity< List< Room > > entity = new GenericEntity< List< Room > >(RoomDAO.ListRoom()) {};
+		GenericEntity< List< ComputerData > > entity = new GenericEntity< List< ComputerData > >(ComputerDataDAO.ListComputerData()) {};
 		return Response.ok(entity).build();
 	}
 
@@ -41,15 +41,15 @@ public class RoomRest {
 	public Response getMaRessourceParId(@PathParam("id") String id) {
 		
 		// le service retourne une ressoure : MaRessource et un code HTTP 200
-		return Response.ok((RoomDAO.getRoom(Integer.parseInt(id)))).build();
+		return Response.ok((ComputerDataDAO.getComputerData(Integer.parseInt(id)))).build();
 	}
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createMaRessource(Room room) {
+	public Response createMaRessource(ComputerData computerdata) {
 		// le service crée une ressoure MaRessource, retourne l'ID de la ressource et un code HTTP 201
-		RoomDAO.SaveUpdateRoom(room);
+		ComputerDataDAO.SaveUpdateComputerData(computerdata);
 		return Response.status(Status.CREATED).build();
 	}
 	
@@ -57,10 +57,10 @@ public class RoomRest {
     @Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateMaRessource(@PathParam("id") String id, Room room) {
+	public Response updateMaRessource(@PathParam("id") String id, ComputerData computerdata) {
 		// le service met à jour une ressoure MaRessource, retourne la ressource et un code HTTP 200
-		RoomDAO.SaveUpdateRoom(room);
-		return Response.ok(room).build();
+		ComputerDataDAO.SaveUpdateComputerData(computerdata);
+		return Response.ok(computerdata).build();
 	}
 
 	@DELETE
@@ -68,7 +68,7 @@ public class RoomRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteMaRessource(@PathParam("id") String id) {
 		// le service supprime une ressoure MaRessource et retourne un code HTTP 204
-		RoomDAO.DeleteRoomById(Integer.parseInt(id));
+		ComputerDataDAO.DeleteComputerDataById(Integer.parseInt(id));
 		return Response.status(Status.NO_CONTENT).build();
 	}
 

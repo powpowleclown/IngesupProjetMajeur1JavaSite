@@ -12,7 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "User")
 @Entity
 @Table(name ="user")
 public class User implements Serializable{
@@ -68,5 +70,10 @@ public class User implements Serializable{
 	}
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstname=" + firstname + ", surname=" + surname + ", pwd=" + pwd + ", mail="
+				+ mail + ", role=" + role + "]";
 	}
 }

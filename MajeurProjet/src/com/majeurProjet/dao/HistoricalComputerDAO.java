@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.query.Query;
 
 import com.majeurProjet.db.HibernateUtil;
+import com.majeurProjet.metier.Computer;
 import com.majeurProjet.metier.HistoricalComputer;
 
 public class HistoricalComputerDAO {
@@ -14,8 +15,14 @@ public class HistoricalComputerDAO {
 		HibernateUtil.getSession().saveOrUpdate(historicalcomputer);
 	}
 	
-	public static void DeleteIncident(HistoricalComputer historicalcomputer)
+	public static void DeleteHistoricalComputer(HistoricalComputer historicalcomputer)
 	{
+		HibernateUtil.getSession().delete(historicalcomputer);
+	}
+	
+	public static void DeleteHistoricalComputerById(int id_historicalcomputer)
+	{
+		HistoricalComputer historicalcomputer = getHistoricalComputer(id_historicalcomputer);
 		HibernateUtil.getSession().delete(historicalcomputer);
 	}
 	

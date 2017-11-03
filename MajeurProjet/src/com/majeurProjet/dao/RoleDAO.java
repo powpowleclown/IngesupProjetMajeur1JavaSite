@@ -1,10 +1,13 @@
 package com.majeurProjet.dao;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.ws.rs.core.GenericEntity;
 
 import org.hibernate.query.Query;
 
@@ -13,13 +16,6 @@ import com.majeurProjet.metier.Role;
 
 public class RoleDAO {
 
-	private static Map<Integer,Role> roleDB = new ConcurrentHashMap<Integer, Role>();
-	private static AtomicInteger idCounter = new AtomicInteger();
-	
-	public static List<Role> getAllRole()
-	{
-		return new ArrayList<Role>(roleDB.values());
-	}
 	public static void SaveUpdateRole(Role role)
 	{
 		HibernateUtil.getSession().saveOrUpdate(role);

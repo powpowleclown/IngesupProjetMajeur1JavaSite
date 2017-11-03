@@ -40,7 +40,7 @@ public class ServletHome extends UtilHttpServlet {
 				Role role = RoleDAO.getRoleUser();
 				user.setRole(role);
 				UserDAO.SaveUpdateUser(user);
-				this.redirect("Home");
+				this.redirect("/Home");
 			}else {
 				Util.showErrorMessage(this.req, this.errorMessage);
 				this.displayView(null);
@@ -65,7 +65,12 @@ public class ServletHome extends UtilHttpServlet {
 				{
 					HttpSession session = this.req.getSession();
 					session.setAttribute("userlog", userLog);
+					if(userLog.getRole().getRole().equals("admin"))
+					{
+						session.setAttribute("isadmin", true);
+					}
 					String redirect = (String) req.getSession().getAttribute("redirect");
+					System.out.println(redirect);
 					if(redirect != null)
 					{
 						try {

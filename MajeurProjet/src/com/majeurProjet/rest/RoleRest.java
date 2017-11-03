@@ -1,5 +1,7 @@
 package com.majeurProjet.rest;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -8,6 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -25,7 +28,8 @@ public class RoleRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getMesRessources() {
 		// le service retourne une liste de ressoure List et un code HTTP 200
-		return Response.ok(RoleDAO.getAllRole()).build();
+		GenericEntity< List< Role > > entity = new GenericEntity< List< Role > >(RoleDAO.ListRole()) {};
+		return Response.ok(entity).build();
 	}
 
 	@GET

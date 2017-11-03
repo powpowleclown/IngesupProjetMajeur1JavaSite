@@ -19,7 +19,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@XmlRootElement(name = "Incident")
 @Entity
 @Table(name ="incident")
 public class Incident implements Serializable{
@@ -34,7 +39,7 @@ public class Incident implements Serializable{
 	private String description;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="id_computer_incident")
-	private Computer computer;  
+	private Computer computer; 
 	@OneToMany(mappedBy = "incident", cascade=CascadeType.ALL)
 	private List<HistoricalIncident> historicals_i = new ArrayList<HistoricalIncident>();
 	
@@ -62,9 +67,11 @@ public class Incident implements Serializable{
 	public void setComputer(Computer computer) {
 		this.computer = computer;
 	}
+	@XmlTransient
 	public List<HistoricalIncident> getHistoricals_i() {
 		return historicals_i;
 	}
+	@XmlTransient
 	public State getLastHistoricals_iState()
 	{
 		getHistoricals_i().sort(Comparator.comparing(HistoricalIncident::getDate));
@@ -72,6 +79,11 @@ public class Incident implements Serializable{
 	}
 	public void setHistoricals_i(List<HistoricalIncident> historicals_i) {
 		this.historicals_i = historicals_i;
+	}
+	@Override
+	public String toString() {
+		return "Incident [id=" + id + ", number=" + number + ", description=" + description + ", computer=" + computer
+				+ "]";
 	}
 
 }
