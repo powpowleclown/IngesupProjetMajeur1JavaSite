@@ -9,7 +9,6 @@ import com.majeurProjet.utils.Util;
 
 public class ServletBackOfficeRoom extends ServletBackOffice {
 
-	private String errorMessage = "";
 	//LIST
 	public void List()
 	{
@@ -44,7 +43,7 @@ public class ServletBackOfficeRoom extends ServletBackOffice {
 			{
 				roomToCreateOrUpdate = RoomDAO.getRoom(id);
 				if(!this.updateFieldsAreCorrect(id)) {
-					Util.showErrorMessage(this.req, this.errorMessage);
+					Util.showErrorMessage(this.req, Util.errorMessage);
 					this.displayView(roomToCreateOrUpdate);
 					return;
 				}
@@ -53,7 +52,7 @@ public class ServletBackOfficeRoom extends ServletBackOffice {
 			{
 				roomToCreateOrUpdate = new Room();
 				if(!this.addFieldsAreCorrect()) {
-					Util.showErrorMessage(this.req, this.errorMessage);
+					Util.showErrorMessage(this.req, Util.errorMessage);
 					this.displayView(null);
 					return;
 				}
@@ -85,15 +84,15 @@ public class ServletBackOfficeRoom extends ServletBackOffice {
 		String name = this.getParam("name");
 		String[] params = {ipMask, name};
 		if(Util.aFieldIsEmpty(params)) {
-			this.errorMessage = Message.fieldIsincorrectOrMissing;
+			Util.errorMessage = Message.fieldIsincorrectOrMissing;
 			return false;
 		}
 		else if(RoomDAO.roomNameAlreadyExists(name)) {
-			this.errorMessage = Message.nameAlreadyUsed;
+			Util.errorMessage = Message.nameAlreadyUsed;
 			return false;
 		}
 		else if (RoomDAO.roomIpAlreadyExists(ipMask)) {
-			this.errorMessage = Message.ipAlreadyUsed;
+			Util.errorMessage = Message.ipAlreadyUsed;
 			return false;
 		}
 		return true;
@@ -104,14 +103,13 @@ public class ServletBackOfficeRoom extends ServletBackOffice {
 		String name = this.getParam("name");
 		String[] params = {ipMask, name};
 		if(Util.aFieldIsEmpty(params)) {
-			this.errorMessage = Message.fieldIsincorrectOrMissing;
+			Util.errorMessage = Message.fieldIsincorrectOrMissing;
 			return false;
 		}
 		Room room = RoomDAO.getRoomByName(name);
 		if(room != null) {
-			System.out.println(room.getName());
 			if(name.equals(room.getName()) && id != room.getId()) {
-				this.errorMessage = Message.nameAlreadyUsed;
+				Util.errorMessage = Message.nameAlreadyUsed;
 				return false;
 			}
 		}
@@ -119,7 +117,7 @@ public class ServletBackOfficeRoom extends ServletBackOffice {
 		room = RoomDAO.getRoomByIp(ipMask);
 		if(room != null) {
 			if (ipMask.equals(room.getIpmask()) && id != room.getId()) {
-				this.errorMessage = Message.ipAlreadyUsed;
+				Util.errorMessage = Message.ipAlreadyUsed;
 				return false;
 			}
 		}

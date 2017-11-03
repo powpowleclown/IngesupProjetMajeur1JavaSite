@@ -7,8 +7,8 @@
 		<input type="text" name="surname" id="surname" value="${model.get(0).surname}"/>
 		<label for="mail">Mail :</label>
 		<input type="text" name="mail" id="mail" value="${model.get(0).mail}"/>
-		<label for="pwd">Password :</label>
-		<input type="text" name="pwd" id="pwd" value="${model.get(0).pwd}"/>
+		<!-- <label for="pwd">Password :</label>
+		<input type="text" name="password" id="pwd" value="${model.get(0).pwd}"/>-->
 		<label for="id_role">Role :</label>
 		<select name="id_role">
 			<c:forEach items="${model.get(1)}" var="role">
@@ -27,7 +27,9 @@
 		<label for="mail">Mail :</label>
 		<input type="text" name="mail" id="mail" />
 		<label for="pwd">Password :</label>
-		<input type="text" name="pwd" id="pwd" />
+		<input type="password" name="password" id="pwd" />
+		<label for="confirm-password">Confirm Password :</label>
+		<input type="password" name="confirm-password" id="confPwd"/>
 		<label for="id_role">Role :</label>
 		<select name="id_role">
 			<c:forEach items="${model.get(1)}" var="role">
@@ -38,3 +40,7 @@
 	</form>
   </c:otherwise>
 </c:choose>
+
+<div>
+    <h2 style="color:red" display="${display}"> ${errorMessage}</h2>
+</div>

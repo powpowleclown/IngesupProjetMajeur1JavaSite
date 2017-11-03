@@ -13,6 +13,7 @@ import org.hibernate.query.Query;
 
 import com.majeurProjet.db.HibernateUtil;
 import com.majeurProjet.metier.Role;
+import com.majeurProjet.metier.State;
 
 public class RoleDAO {
 
@@ -60,5 +61,25 @@ public class RoleDAO {
 		query.setParameter(0, "User");
 		return (Role) query.getSingleResult();
 		 
+	}
+	
+	public static Role getRoleByName(String name) {
+		try
+		{
+			return (Role) HibernateUtil.getSession().createQuery("FROM Role where name=?")
+					.setParameter(0, name).getSingleResult();
+		}
+		catch(Exception e)
+		{
+			return null;
+		}	
+	}
+	
+	public static boolean roleNameAlreadyExists(String name) {
+		if(getRoleByName(name) != null) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }
