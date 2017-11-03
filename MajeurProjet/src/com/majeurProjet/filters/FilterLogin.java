@@ -11,6 +11,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.majeurProjet.metier.User;
+
 /**
  * Servlet Filter implementation class FilterLogin
  */
@@ -38,12 +40,12 @@ public class FilterLogin implements Filter {
 		// TODO Auto-generated method stub
 		// place your code here
 		HttpServletRequest req = (HttpServletRequest) request;
-		if(req.getSession().getAttribute("user") == null)
+		if(req.getSession().getAttribute("userlog") == null || req.getSession().getAttribute("isadmin") == null)
 		{
 			HttpServletResponse resp = (HttpServletResponse) response;
 			try {
 				req.getSession().setAttribute("redirect", req.getRequestURI());
-				resp.sendRedirect("SignIn");
+				resp.sendRedirect("/MajeurProjet/Home/SignIn");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

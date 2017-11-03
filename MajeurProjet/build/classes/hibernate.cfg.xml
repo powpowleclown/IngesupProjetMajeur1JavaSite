@@ -6,7 +6,7 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost/master?autoReconect=true</property>
+		<property name="connection.url">jdbc:mysql://localhost/majeur_projet?autoReconect=true</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">root</property>
 			
@@ -25,6 +25,7 @@
 		<mapping class="com.majeurProjet.metier.Incident"/>
 		<mapping class="com.majeurProjet.metier.State"/>
 		<mapping class="com.majeurProjet.metier.Computer"/>
+		<mapping class="com.majeurProjet.metier.ComputerData"/>
 		<mapping class="com.majeurProjet.metier.Room"/>
 		<mapping class="com.majeurProjet.metier.Role"/>
 		<mapping class="com.majeurProjet.metier.User"/>

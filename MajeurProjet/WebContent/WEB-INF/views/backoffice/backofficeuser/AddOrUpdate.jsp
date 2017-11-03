@@ -47,8 +47,12 @@
 				<input type="text" name="mail" id="mail" />
 			</div>
 			<div class="field-wrap">
-				<label for="pwd">Password :</label> 
-				<input type="text" name="pwd" id="pwd" />
+				<label for="password">Password :</label> 
+				<input type="text" name="password" id="password" />
+			</div>	
+			<div class="field-wrap">
+				<label for="confirm-password">Confirm Password :</label> 
+				<input type="text" name="confirm-password" id="confirm-password" />
 			</div>
 			<div class="field-wrap">
 				<label for="id_role">Role :</label> <select name="id_role">

@@ -16,7 +16,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@XmlRootElement(name = "Computer")
 @Entity
 @Table(name ="computer")
 public class Computer implements Serializable {
@@ -32,8 +37,10 @@ public class Computer implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_room_computer")
 	private Room room;
+	@JsonIgnore
 	@OneToMany(mappedBy = "computer", cascade = CascadeType.ALL)
 	private List<Incident> incidents = new ArrayList<Incident>();
+	@JsonIgnore
 	@OneToMany(mappedBy = "computer", cascade=CascadeType.ALL)
 	private List<HistoricalComputer> historicals_c = new ArrayList<HistoricalComputer>();
 
@@ -69,7 +76,7 @@ public class Computer implements Serializable {
 	public void setRoom(Room room) {
 		this.room = room;
 	}
-	
+	@XmlTransient 
 	public List<Incident> getIncidents() {
 		return incidents;
 	}
@@ -77,19 +84,22 @@ public class Computer implements Serializable {
 	public void setIncidents(List<Incident> incidents) {
 		this.incidents = incidents;
 	}
-
+	@XmlTransient 
 	public List<HistoricalComputer> getHistoricals_c() {
 		return historicals_c;
 	}
-
 	public State getLastHistoricals_cState()
 	{
 		getHistoricals_c().sort(Comparator.comparing(HistoricalComputer::getDate));
 		return getHistoricals_c().get(0).getState();
 	}
-	
 	public void setHistoricals_c(List<HistoricalComputer> historicals_c) {
 		this.historicals_c = historicals_c;
+	}
+
+	@Override
+	public String toString() {
+		return "Computer [id=" + id + ", name=" + name + ", ip=" + ip + ", room=" + room + "]";
 	}
 
 }

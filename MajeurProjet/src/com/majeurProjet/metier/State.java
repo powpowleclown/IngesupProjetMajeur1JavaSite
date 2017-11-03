@@ -12,7 +12,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.sun.xml.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
+
+
+@XmlRootElement(name = "State")
 @Entity
 @Table(name ="state")
 public class State implements Serializable{
@@ -46,16 +54,24 @@ public class State implements Serializable{
 	public void setTable(String table) {
 		this.table = table;
 	}
+	@XmlTransient
 	public List<HistoricalIncident> getHistoricals_i() {
 		return historicals_i;
 	}
 	public void setHistoricals_i(List<HistoricalIncident> historicals_i) {
 		this.historicals_i = historicals_i;
 	}
+	@XmlTransient
 	public List<HistoricalComputer> getHistoricals_c() {
 		return historicals_c;
 	}
 	public void setHistoricals_c(List<HistoricalComputer> historicals_c) {
 		this.historicals_c = historicals_c;
 	}
+	
+	@Override
+	public String toString() {
+		return "State [id=" + id + ", name=" + name + ", table=" + table + "]";
+	}
+	
 }

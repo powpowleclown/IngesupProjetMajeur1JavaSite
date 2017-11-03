@@ -8,8 +8,11 @@ import java.util.Base64;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+
+import com.majeurProjet.dao.UserDAO;
 public class Util {
 	//This class is used for generic function, parameters etc...
+	public static String errorMessage = "";
 	
 	public static boolean aFieldIsEmpty(String[] params) {
         for (String param : params) {
@@ -53,6 +56,30 @@ public class Util {
 			return null;
 		}
     	
+    }
+    
+    
+ // extrude code of 'signUpFieldsAreCorrect' because this part is also used in backOfficeUser
+    public static boolean addFieldsAreCorrect(String encryptedPassword, String firstname, String surname, String email, String password, String confirm_password) {
+    	if (encryptedPassword == null) {
+        	Util.errorMessage = Message.failedToConnect;
+        	return false;
+        }else {
+        	String[] paramsName = {firstname, surname, email, password, confirm_password};
+            if (Util.aFieldIsEmpty(paramsName)) {
+                Util.errorMessage = Message.fieldIsincorrectOrMissing;
+                return false;
+
+            } else if (!Util.isSamePasswords(password, confirm_password)) {
+                Util.errorMessage = Message.passwordsNotMatching;
+                return false;
+            } else if (UserDAO.userEmailAlreadyExists(email)) {
+                Util.errorMessage = Message.emailAlreadyUsed;
+                return false;
+            } else {
+                return true;
+            }
+        }
     }
 
 }

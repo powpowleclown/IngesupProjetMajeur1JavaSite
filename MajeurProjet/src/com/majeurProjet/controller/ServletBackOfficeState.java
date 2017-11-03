@@ -13,7 +13,6 @@ import com.majeurProjet.utils.Util;
 
 public class ServletBackOfficeState extends ServletBackOffice {
 	
-	private String errorMessage = "";
 
 	//LIST
 	public void List()
@@ -49,7 +48,7 @@ public class ServletBackOfficeState extends ServletBackOffice {
 			{
 				stateCreateOrUpdate = StateDAO.getState(id);
 				if (!this.updateFieldsAreCorrect(id)) {
-					Util.showErrorMessage(this.req, this.errorMessage);
+					Util.showErrorMessage(this.req, Util.errorMessage);
 					this.displayView(stateCreateOrUpdate);
 					return;
 				}
@@ -58,7 +57,7 @@ public class ServletBackOfficeState extends ServletBackOffice {
 			{
 				stateCreateOrUpdate = new State();
 				if (!this.addFieldsAreCorrect()) {
-					Util.showErrorMessage(this.req, this.errorMessage);
+					Util.showErrorMessage(this.req, Util.errorMessage);
 					this.displayView(null);
 					return;
 				}
@@ -88,13 +87,13 @@ public class ServletBackOfficeState extends ServletBackOffice {
 		String table = this.getParam("table");
 		String[] params = {name, table};
 		if(Util.aFieldIsEmpty(params)) {
-			this.errorMessage = Message.fieldIsincorrectOrMissing;
+			Util.errorMessage = Message.fieldIsincorrectOrMissing;
 			return false;
 		}
 		State state = StateDAO.getStateByNameAndTable(name, table);
 		if(state != null) {
 			if(name.equals(state.getName()) && table.equals(state.getTable()) && id != state.getId()) {
-				this.errorMessage = Message.nameAlreadyUsed;
+				Util.errorMessage = Message.nameAlreadyUsed;
 				return false;
 			}
 		}
@@ -106,11 +105,11 @@ public class ServletBackOfficeState extends ServletBackOffice {
 		String table = this.getParam("table");
 		String[] params = {name, table};
 		if(Util.aFieldIsEmpty(params)) {
-			this.errorMessage = Message.fieldIsincorrectOrMissing;
+			Util.errorMessage = Message.fieldIsincorrectOrMissing;
 			return false;
 		}
 		if(StateDAO.stateAlreadyExists(name, table)) {
-			this.errorMessage = Message.nameAlreadyUsed;
+			Util.errorMessage = Message.nameAlreadyUsed;
 			return false;
 		}
 		return true;

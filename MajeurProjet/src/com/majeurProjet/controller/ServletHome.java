@@ -19,10 +19,17 @@ import com.majeurProjet.utils.Message;
 import com.majeurProjet.utils.Util;
 
 public class ServletHome extends UtilHttpServlet {
+<<<<<<< HEAD
 
 	private String errorMessage = "";
 
 	public void Home() {
+=======
+	
+	
+	public void Home()
+	{
+>>>>>>> 81889d0e92d59fc1ed5a326053a97e0d02664738
 		List<Room> rooms = RoomDAO.ListRoom();
 		this.displayView(rooms);
 	}
@@ -46,9 +53,15 @@ public class ServletHome extends UtilHttpServlet {
 				Role role = RoleDAO.getRoleUser();
 				user.setRole(role);
 				UserDAO.SaveUpdateUser(user);
+<<<<<<< HEAD
 				this.redirect("Home");
 			} else {
 				Util.showErrorMessage(this.req, this.errorMessage);
+=======
+				this.redirect("/Home/Home");
+			}else {
+				Util.showErrorMessage(this.req, Util.errorMessage);
+>>>>>>> 81889d0e92d59fc1ed5a326053a97e0d02664738
 				this.displayView(null);
 			}
 		} else {
@@ -66,8 +79,18 @@ public class ServletHome extends UtilHttpServlet {
 				if (userLog != null) {
 					HttpSession session = this.req.getSession();
 					session.setAttribute("userlog", userLog);
+					if(userLog.getRole().getRole().equals("admin"))
+					{
+						session.setAttribute("isadmin", true);
+					}
 					String redirect = (String) req.getSession().getAttribute("redirect");
+<<<<<<< HEAD
 					if (redirect != null) {
+=======
+					System.out.println(redirect);
+					if(redirect != null)
+					{
+>>>>>>> 81889d0e92d59fc1ed5a326053a97e0d02664738
 						try {
 							redirect = redirect.toString();
 							this.resp.sendRedirect(redirect);
@@ -88,11 +111,18 @@ public class ServletHome extends UtilHttpServlet {
 					Util.showErrorMessage(this.req, Message.failedToSignIn);
 					this.displayView(null);
 				}
+<<<<<<< HEAD
 
 			} else {
 				Util.showErrorMessage(this.req, this.errorMessage);
 				this.displayView(null);
 				;
+=======
+			
+			}else{
+				Util.showErrorMessage(this.req, Util.errorMessage);
+				this.displayView(null);;
+>>>>>>> 81889d0e92d59fc1ed5a326053a97e0d02664738
 			}
 		} else {
 			Util.hideErrorMessage(this.req);
@@ -109,6 +139,7 @@ public class ServletHome extends UtilHttpServlet {
 			e.printStackTrace();
 		}
 	}
+<<<<<<< HEAD
 
 	private boolean signUpFieldsAreCorrect(String encryptedPassword) {
 		String firstname = this.getParam("name");
@@ -160,4 +191,40 @@ public class ServletHome extends UtilHttpServlet {
 
 	}
 
+=======
+	
+    private boolean signUpFieldsAreCorrect(String encryptedPassword) {
+        String firstname = this.getParam("name");
+        String surname = this.getParam("surname");
+        String email = this.getParam("mail");
+        String password = this.getParam("password");
+        String confirm_password = this.getParam("confirm-password");
+        return Util.addFieldsAreCorrect(encryptedPassword, firstname, surname, email, password, confirm_password);
+        
+    }
+    
+    private boolean signInFieldsAreCorrect(String encryptedPassword) {
+        String email = this.getParam("mail");
+        String password = this.getParam("password");
+        String[] params = {email, password};
+        if (encryptedPassword == null) {
+        	Util.errorMessage = Message.failedToConnect;
+        	return false;
+        }else {
+        	if (Util.aFieldIsEmpty(params)) {
+                Util.errorMessage = Message.fieldIsincorrectOrMissing;
+                return false;
+            } else if (!UserDAO.userAlreadyExists(email, encryptedPassword)) {
+                Util.errorMessage = Message.badEmailOrPassword;
+                return false;
+            } else {
+                return true;
+            }
+        }
+        
+    }
+    
+    
+    
+>>>>>>> 81889d0e92d59fc1ed5a326053a97e0d02664738
 }

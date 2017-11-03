@@ -17,7 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "HistoricalIncident")
 @Entity
 @Table(name = "historical_i")
 public class HistoricalIncident implements Serializable{
@@ -66,5 +68,10 @@ public class HistoricalIncident implements Serializable{
 	}
 	public void setState(State state) {
 		this.state = state;
+	}
+	@Override
+	public String toString() {
+		return "HistoricalIncident [id=" + id + ", date=" + date + ", note=" + note + ", incident=" + incident
+				+ ", state=" + state + "]";
 	}
 }

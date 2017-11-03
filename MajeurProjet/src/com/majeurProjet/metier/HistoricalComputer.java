@@ -14,7 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "HistoricalComputer")
 @Entity
 @Table(name = "historical_c")
 public class HistoricalComputer implements Serializable{
@@ -63,5 +65,10 @@ public class HistoricalComputer implements Serializable{
 	}
 	public void setState(State state) {
 		this.state = state;
+	}
+	@Override
+	public String toString() {
+		return "HistoricalComputer [id=" + id + ", date=" + date + ", note=" + note + ", computer=" + computer
+				+ ", state=" + state + "]";
 	}
 }

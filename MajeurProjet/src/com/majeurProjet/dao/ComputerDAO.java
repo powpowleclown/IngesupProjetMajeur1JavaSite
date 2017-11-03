@@ -46,4 +46,20 @@ public class ComputerDAO {
 
 		return computer;
 	}
+	public static Computer getComputerByIp(String ip_computer)
+	{
+		Computer computer;
+		try
+		{
+			Query query = HibernateUtil.getSession().createQuery("FROM Computer C WHERE C.ip=?");
+			query.setParameter(0, ip_computer);
+			computer = (Computer) query.getSingleResult();
+		}
+		catch(Exception e)
+		{
+			computer = null;
+		}
+
+		return computer;
+	}
 }
