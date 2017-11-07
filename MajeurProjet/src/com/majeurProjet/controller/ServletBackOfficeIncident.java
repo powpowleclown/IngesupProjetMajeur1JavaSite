@@ -14,6 +14,8 @@ import com.majeurProjet.metier.HistoricalIncident;
 import com.majeurProjet.metier.Incident;
 import com.majeurProjet.metier.Room;
 import com.majeurProjet.metier.State;
+import com.majeurProjet.utils.Message;
+import com.majeurProjet.utils.Util;
 
 public class ServletBackOfficeIncident extends ServletBackOffice {
 	
@@ -53,10 +55,26 @@ public class ServletBackOfficeIncident extends ServletBackOffice {
 			if(id != null)
 			{
 				incidentCreateOrUpdate = IncidentDAO.getIncident(id);
+				if(!this.updateFieldsAreCorrect(id)) {
+					Util.showErrorMessage(this.req, Util.errorMessage);
+					model.add(incident);
+					model.add(computers);
+					model.add(states);
+					this.displayView(model);
+					return;
+				}
 			}
 			else
 			{
 				incidentCreateOrUpdate = new Incident();
+				if (!this.addFieldsAreCorrect()) {
+					Util.showErrorMessage(this.req, Util.errorMessage);
+					model.add(incident);
+					model.add(computers);
+					model.add(states);
+					this.displayView(model);
+					return;
+				}
 			}
 	
 			HistoricalIncident historical = new HistoricalIncident();
@@ -92,7 +110,44 @@ public class ServletBackOfficeIncident extends ServletBackOffice {
 		Incident incident = IncidentDAO.getIncident(id);
 		IncidentDAO.DeleteIncident(incident);
 		this.redirect("/BackOffice/Incident/List");
+	}
+	
+	private boolean updateFieldsAreCorrect(int id) {
+		String number = this.getParam("number");
+		String description = this.getParam("description");
+		String id_state = this.getParam("id_state");
+		String id_computer = this.getParam("id_computer");
+		String[] params = {number, description ,id_state, id_computer};
+		if(Util.aFieldIsEmpty(params)) {
+			Util.errorMessage = Message.fieldIsincorrectOrMissing;
+			return false;
+		}
+		Incident incident = IncidentDAO.getIncidentByNumber(number);
+		if(incident != null) {
+			if(number.equals(incident.getNumber()) && id != incident.getId()) {
+				Util.errorMessage = Message.numberAlreadyUsed;
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private boolean addFieldsAreCorrect() {
+		String number = this.getParam("number");
+		String description = this.getParam("description");
+		String id_state = this.getParam("id_state");
+		String id_computer = this.getParam("id_computer");
+		String[] params = {number, description ,id_state, id_computer};
+		if(Util.aFieldIsEmpty(params)) {
+			Util.errorMessage = Message.fieldIsincorrectOrMissing;
+			return false;
+		}
 		
+		if(IncidentDAO.incidentAlreadyExists(number)) {
+			Util.errorMessage = Message.numberAlreadyUsed;
+			return false;
+		}
+		return true;
 	}
 
 }
