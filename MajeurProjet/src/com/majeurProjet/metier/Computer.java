@@ -19,7 +19,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @XmlRootElement(name = "Computer")
 @Entity
@@ -37,10 +37,10 @@ public class Computer implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_room_computer")
 	private Room room;
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(mappedBy = "computer", cascade = CascadeType.ALL)
 	private List<Incident> incidents = new ArrayList<Incident>();
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(mappedBy = "computer", cascade=CascadeType.ALL)
 	private List<HistoricalComputer> historicals_c = new ArrayList<HistoricalComputer>();
 

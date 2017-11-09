@@ -16,12 +16,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+/*import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonRootName;*/
 
 @XmlRootElement()
-@JsonPropertyOrder({"id", "name", "ipmask"})
+//@JsonPropertyOrder({"id", "name", "ipmask"})
 @Entity
 @Table(name ="room")
 public class Room implements Serializable{
@@ -33,7 +33,7 @@ public class Room implements Serializable{
 	private String name;
 	@Column(name="ipmask_room")
 	private String ipmask;
-	@JsonIgnore
+	//@JsonIgnore
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
 	private List<Computer> computers = new ArrayList<Computer>();
 

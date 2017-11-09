@@ -15,10 +15,10 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+/*import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.sun.xml.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
-
+*/
 
 @XmlRootElement(name = "State")
 @Entity
