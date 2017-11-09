@@ -18,7 +18,13 @@
 					</tr>
 					<c:forEach items="${room.getComputers()}" var="computer">
 						<tr>
-							<td>${computer.name}</td>
+							<td>
+								<a href="<c:url value="./Computer">
+										<c:param name="id_computer" value="${computer.id}"/>
+									</c:url>">
+									${computer.name}
+								</a>
+							</td>
 						<tr>
 					</c:forEach>
 				</table>

@@ -46,4 +46,21 @@ public class ComputerDataDAO {
 
 		return computerdata;
 	}
+	
+	public static ComputerData getComputerDataByComputer(int id_computer) {
+		ComputerData computerdata;
+		try
+		{
+			System.out.println(ComputerDAO.getComputer(id_computer));
+			Query query = HibernateUtil.getSession().createQuery("FROM ComputerData C WHERE C.computer=?");
+			query.setParameter(0, ComputerDAO.getComputer(id_computer));
+			computerdata = (ComputerData) query.getSingleResult();
+		}
+		catch(Exception e)
+		{
+			computerdata = null;
+		}
+
+		return computerdata;
+	}
 }

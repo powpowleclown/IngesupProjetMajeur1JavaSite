@@ -1,21 +1,23 @@
 package com.majeurProjet.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
+import com.majeurProjet.dao.ComputerDAO;
+import com.majeurProjet.dao.ComputerDataDAO;
 import com.majeurProjet.dao.RoleDAO;
 import com.majeurProjet.dao.RoomDAO;
 import com.majeurProjet.dao.UserDAO;
-import com.majeurProjet.metier.Computer;
+import com.majeurProjet.metier.ComputerData;
 import com.majeurProjet.metier.Role;
 import com.majeurProjet.metier.Room;
 import com.majeurProjet.metier.User;
 import com.majeurProjet.utils.Message;
 import com.majeurProjet.utils.Util;
+import com.majeurProjet.metier.Computer;
 
 public class ServletHome extends UtilHttpServlet {
 
@@ -123,6 +125,29 @@ public class ServletHome extends UtilHttpServlet {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	
+	public void Computer() {
+		List<Object> model = new ArrayList<Object>();
+		ComputerData computerData = null;
+		Integer id = this.getParamAsInt("id_computer");
+		if(id != null)
+		{
+			computerData = ComputerDataDAO.getComputerDataByComputer(id);
+			Computer computer = ComputerDAO.getComputer(id);
+			if (computer != null) {
+				model.add(computer);
+				model.add(computerData);
+				this.displayView(model);
+			}
+			
+			else{
+				this.redirect("/Home/Home");
+			}
+		}else {
+			this.redirect("/Home/Home");
 		}
 	}
 
