@@ -36,13 +36,21 @@ public class ComputerRest {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getMaRessourceParId(@PathParam("id") int id) {
+	public Response getMaRessourceParId(@PathParam("id") String id) {
 		
 		// le service retourne une ressoure : MaRessource et un code HTTP 200
-		return Response.ok((ComputerDAO.getComputer(id))).build();
+		return Response.ok((ComputerDAO.getComputer(Integer.parseInt(id)))).build();
 	}
 	
-
+	@GET
+	@Path("/by_ip/{ip}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getMaRessourceParIp(@PathParam("ip") String ip) {
+		
+		// le service retourne une ressoure : MaRessource et un code HTTP 200
+		return Response.ok((ComputerDAO.getComputerByIp(ip))).build();
+	}
+	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
