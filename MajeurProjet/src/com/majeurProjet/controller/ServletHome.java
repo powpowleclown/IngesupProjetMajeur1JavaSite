@@ -30,98 +30,96 @@ public class ServletHome extends UtilHttpServlet {
 	}
 
 	public void Connection() throws ServletException {
-		// rd = req.getRequestDispatcher("SignIn.jsp").forward(this.req, this.resp);
-		// System.out.println(rd);
-		// this.req.setAttribute("formAction", rd);
 
 		if (this.isPostBack()) {
-			try {
-				this.req.getRequestDispatcher( this.getParam("redirect")).forward(req, resp);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//this.req.getRequestDispatcher( this.getParam("redirect")).forward(req, resp);
+			String redirect = this.getParam("redirect");
+			if(redirect != null) {
+				if(redirect.equals("SignIn")) {
+					this.SignIn();
+				}
+				else if (redirect.equals("SignUp")) {
+					this.SignUp();
+				}else {
+					Util.errorMessage = Message.failedToConnect;
+					Util.showErrorMessage(this.req, Util.errorMessage);
+				}
+			}else {
+				Util.errorMessage = Message.failedToConnect;
+				Util.showErrorMessage(this.req, Util.errorMessage);
 			}
 		}
 
 		else {
-			System.out.println(this.req.getAttribute("display"));
+			Util.hideErrorMessage(this.req);
 			this.displayView(null);
 		}
 	}
 
 	public void SignUp() {
-		if (this.isPostBack()) {
-			String encryptedPassword = Util.encryptPassword(this.getParam("password"));
-			if (this.signUpFieldsAreCorrect(encryptedPassword)) {
-				User user = new User();
-				user.setMail(this.getParam("mail"));
-				user.setPwd(encryptedPassword);
-				user.setName(this.getParam("name"));
-				user.setSurname(this.getParam("surname"));
-				Role role = RoleDAO.getRoleUser();
-				user.setRole(role);
-				UserDAO.SaveUpdateUser(user);
-				this.redirect("/Home/Home");
-			} else {
-				Util.showErrorMessage(this.req, Util.errorMessage);
-				this.redirect("/Home/Connection");
-			}
+		String encryptedPassword = Util.encryptPassword(this.getParam("password"));
+		if (this.signUpFieldsAreCorrect(encryptedPassword)) {
+			User user = new User();
+			user.setMail(this.getParam("mail"));
+			user.setPwd(encryptedPassword);
+			user.setName(this.getParam("name"));
+			user.setSurname(this.getParam("surname"));
+			Role role = RoleDAO.getRoleUser();
+			user.setRole(role);
+			UserDAO.SaveUpdateUser(user);
+			this.redirect("/Home/Home");
 		} else {
-			Util.hideErrorMessage(this.req);
-			this.redirect("/Home/Connection");
+			Util.showErrorMessage(this.req, Util.errorMessage);
+			this.displayView(null);
 		}
+		
 	}
 
 	public void SignIn() {
-		if (this.isPostBack()) {
-			String encryptedPassword = Util.encryptPassword(this.getParam("password"));
-			if (this.signInFieldsAreCorrect(encryptedPassword)) {
-				String mail = this.getParam("mail");
-				User userLog = UserDAO.getUserByMailPassword(mail, encryptedPassword);
-				if (userLog != null) {
-					HttpSession session = this.req.getSession();
-					session.setAttribute("userlog", userLog);
-					if (userLog.getRole().getRole().equals("admin")) {
-						session.setAttribute("isadmin", true);
-					}
-					String redirect = (String) req.getSession().getAttribute("redirect");
-					System.out.println(redirect);
-					if (redirect != null) {
-						try {
-							redirect = redirect.toString();
-							this.resp.sendRedirect(redirect);
-							return;
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					} else {
-						try {
-							this.resp.sendRedirect("Home");
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+		String encryptedPassword = Util.encryptPassword(this.getParam("password"));
+		if (this.signInFieldsAreCorrect(encryptedPassword)) {
+			String mail = this.getParam("mail");
+			User userLog = UserDAO.getUserByMailPassword(mail, encryptedPassword);
+			if (userLog != null) {
+				HttpSession session = this.req.getSession();
+				session.setAttribute("userlog", userLog);
+				if (userLog.getRole().getRole().equals("admin")) {
+					session.setAttribute("isadmin", true);
+				}
+				String redirect = (String) req.getSession().getAttribute("redirect");
+				System.out.println(redirect);
+				if (redirect != null) {
+					try {
+						redirect = redirect.toString();
+						this.resp.sendRedirect(redirect);
+						return;
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				} else {
-					Util.showErrorMessage(this.req, Message.failedToSignIn);
-					this.redirect("/Home/Connection");
+					try {
+						this.resp.sendRedirect("Home");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
-
 			} else {
-				Util.showErrorMessage(this.req, Util.errorMessage);
-				this.redirect("/Home/Connection");
+				Util.showErrorMessage(this.req, Message.failedToSignIn);
+				this.displayView(null);
 			}
+
 		} else {
-			Util.hideErrorMessage(this.req);
-			this.redirect("/Home/Connection");
+			Util.showErrorMessage(this.req, Util.errorMessage);
+			this.displayView(null);
 		}
 	}
 
 	public void Logout() {
 		this.req.getSession().removeAttribute("user");
 		try {
-			this.resp.sendRedirect("SignIn");
+			this.resp.sendRedirect("Connection");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
