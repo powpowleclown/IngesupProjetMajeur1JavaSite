@@ -1,6 +1,5 @@
 package com.majeurProjet.controller;
 
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -19,32 +18,41 @@ import com.majeurProjet.utils.Message;
 import com.majeurProjet.utils.Util;
 
 public class ServletHome extends UtilHttpServlet {
-	
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public void Home()
-	{
+	public void Home() {
 		List<Room> rooms = RoomDAO.ListRoom();
 		this.displayView(rooms);
 	}
-	
-		public void Connection() throws ServletException {
-		RequestDispatcher rd = req.getRequestDispatcher("SignIn.jsp");
-		this.req.setAttribute("formAction", rd);
-		
-		this.displayView(null);
+
+	public void Connection() throws ServletException {
+		// rd = req.getRequestDispatcher("SignIn.jsp").forward(this.req, this.resp);
+		// System.out.println(rd);
+		// this.req.setAttribute("formAction", rd);
+
+		if (this.isPostBack()) {
+			try {
+				this.req.getRequestDispatcher( this.getParam("redirect")).forward(req, resp);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		else {
+			System.out.println(this.req.getAttribute("display"));
+			this.displayView(null);
+		}
 	}
-	
-	public void SignUp()
-	{
-		if(this.isPostBack())
-		{
-			String encryptedPassword  = Util.encryptPassword(this.getParam("password"));
-			if(this.signUpFieldsAreCorrect(encryptedPassword)) {
+
+	public void SignUp() {
+		if (this.isPostBack()) {
+			String encryptedPassword = Util.encryptPassword(this.getParam("password"));
+			if (this.signUpFieldsAreCorrect(encryptedPassword)) {
 				User user = new User();
 				user.setMail(this.getParam("mail"));
 				user.setPwd(encryptedPassword);
@@ -54,38 +62,31 @@ public class ServletHome extends UtilHttpServlet {
 				user.setRole(role);
 				UserDAO.SaveUpdateUser(user);
 				this.redirect("/Home/Home");
-			}else {
+			} else {
 				Util.showErrorMessage(this.req, Util.errorMessage);
-				this.displayView(null);
+				this.redirect("/Home/Connection");
 			}
-		}
-		else
-		{
+		} else {
 			Util.hideErrorMessage(this.req);
-			this.displayView(null);
+			this.redirect("/Home/Connection");
 		}
 	}
-	
-	public void SignIn()
-	{
-		if(this.isPostBack())
-		{
-			String encryptedPassword  = Util.encryptPassword(this.getParam("password"));
-			if(this.signInFieldsAreCorrect(encryptedPassword)) {
+
+	public void SignIn() {
+		if (this.isPostBack()) {
+			String encryptedPassword = Util.encryptPassword(this.getParam("password"));
+			if (this.signInFieldsAreCorrect(encryptedPassword)) {
 				String mail = this.getParam("mail");
-				User userLog = UserDAO.getUserByMailPassword(mail,encryptedPassword);
-				if(userLog != null)
-				{
+				User userLog = UserDAO.getUserByMailPassword(mail, encryptedPassword);
+				if (userLog != null) {
 					HttpSession session = this.req.getSession();
 					session.setAttribute("userlog", userLog);
-					if(userLog.getRole().getRole().equals("admin"))
-					{
+					if (userLog.getRole().getRole().equals("admin")) {
 						session.setAttribute("isadmin", true);
 					}
 					String redirect = (String) req.getSession().getAttribute("redirect");
 					System.out.println(redirect);
-					if(redirect != null)
-					{
+					if (redirect != null) {
 						try {
 							redirect = redirect.toString();
 							this.resp.sendRedirect(redirect);
@@ -94,9 +95,7 @@ public class ServletHome extends UtilHttpServlet {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					}
-					else
-					{
+					} else {
 						try {
 							this.resp.sendRedirect("Home");
 						} catch (IOException e) {
@@ -104,23 +103,22 @@ public class ServletHome extends UtilHttpServlet {
 							e.printStackTrace();
 						}
 					}
-				}else {
+				} else {
 					Util.showErrorMessage(this.req, Message.failedToSignIn);
-					this.displayView(null);
+					this.redirect("/Home/Connection");
 				}
-			
-			}else{
+
+			} else {
 				Util.showErrorMessage(this.req, Util.errorMessage);
-				this.displayView(null);;
+				this.redirect("/Home/Connection");
 			}
-		}else{
+		} else {
 			Util.hideErrorMessage(this.req);
-			this.displayView(null);
-		}	
+			this.redirect("/Home/Connection");
+		}
 	}
-	
-	public void Logout()
-	{
+
+	public void Logout() {
 		this.req.getSession().removeAttribute("user");
 		try {
 			this.resp.sendRedirect("SignIn");
@@ -129,38 +127,36 @@ public class ServletHome extends UtilHttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
-    private boolean signUpFieldsAreCorrect(String encryptedPassword) {
-        String firstname = this.getParam("name");
-        String surname = this.getParam("surname");
-        String email = this.getParam("mail");
-        String password = this.getParam("password");
-        String confirm_password = this.getParam("confirm-password");
-        return Util.addFieldsAreCorrect(encryptedPassword, firstname, surname, email, password, confirm_password);
-        
-    }
-    
-    private boolean signInFieldsAreCorrect(String encryptedPassword) {
-        String email = this.getParam("mail");
-        String password = this.getParam("password");
-        String[] params = {email, password};
-        if (encryptedPassword == null) {
-        	Util.errorMessage = Message.failedToConnect;
-        	return false;
-        }else {
-        	if (Util.aFieldIsEmpty(params)) {
-                Util.errorMessage = Message.fieldIsincorrectOrMissing;
-                return false;
-            } else if (!UserDAO.userAlreadyExists(email, encryptedPassword)) {
-                Util.errorMessage = Message.badEmailOrPassword;
-                return false;
-            } else {
-                return true;
-            }
-        }
-        
-    }
-    
-    
-    
+
+	private boolean signUpFieldsAreCorrect(String encryptedPassword) {
+		String firstname = this.getParam("name");
+		String surname = this.getParam("surname");
+		String email = this.getParam("mail");
+		String password = this.getParam("password");
+		String confirm_password = this.getParam("confirm-password");
+		return Util.addFieldsAreCorrect(encryptedPassword, firstname, surname, email, password, confirm_password);
+
+	}
+
+	private boolean signInFieldsAreCorrect(String encryptedPassword) {
+		String email = this.getParam("mail");
+		String password = this.getParam("password");
+		String[] params = { email, password };
+		if (encryptedPassword == null) {
+			Util.errorMessage = Message.failedToConnect;
+			return false;
+		} else {
+			if (Util.aFieldIsEmpty(params)) {
+				Util.errorMessage = Message.fieldIsincorrectOrMissing;
+				return false;
+			} else if (!UserDAO.userAlreadyExists(email, encryptedPassword)) {
+				Util.errorMessage = Message.badEmailOrPassword;
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+	}
+
 }
