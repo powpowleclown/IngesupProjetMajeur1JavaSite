@@ -46,4 +46,28 @@ public class IncidentDAO {
 
 		return incident;
 	}
+	
+	public static Incident getIncidentByNumber(String number) {
+		Incident incident;
+		try
+		{
+			Query query = HibernateUtil.getSession().createQuery("FROM Incident C WHERE C.number=?");
+			query.setParameter(0, number);
+			incident = (Incident) query.getSingleResult();
+		}
+		catch(Exception e)
+		{
+			incident = null;
+		}
+
+		return incident;
+	}
+	
+	public static boolean incidentAlreadyExists(String number) {
+		if(getIncidentByNumber(number) != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

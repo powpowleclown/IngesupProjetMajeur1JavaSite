@@ -10,6 +10,7 @@ public class Message {
 	public static String  emailNotExists = "email not exists";
 	public static String badPassword = "password is not correct";
 	public static String badEmailOrPassword = "email or password is incorrect";
-	public static String nameAlreadyUsed = "this name is alreadyUsed";
-	public static String ipAlreadyUsed = "this ip is alreadyUsed";
+	public static String nameAlreadyUsed = "this name is alread used";
+	public static String ipAlreadyUsed = "this ip is already used";
+	public static String numberAlreadyUsed = "this number is already used";
 }

@@ -72,7 +72,9 @@ public class ServletBackOfficeUser extends ServletBackOffice {
 				userCreateOrUpdate = new User();
 				if(!addFieldsAreCorrect(encryptedPassword)) {
 					Util.showErrorMessage(this.req, Util.errorMessage);
-					this.displayView(null);
+					model.add(user);
+					model.add(roles);
+					this.displayView(model);
 					return;
 				}else {
 					userCreateOrUpdate.setPwd(encryptedPassword);
@@ -107,11 +109,12 @@ public class ServletBackOfficeUser extends ServletBackOffice {
 		String firstname = this.getParam("name");
         String surname = this.getParam("surname");
         String email = this.getParam("mail");
+        String id_role = this.getParam("id_role");
         if (encryptedPassword == null) {
         	Util.errorMessage = Message.failedToConnect;
         	return false;
         }else {
-        	String[] paramsName = {firstname, surname, email};
+        	String[] paramsName = {firstname, surname, email, id_role};
             if (Util.aFieldIsEmpty(paramsName)) {
                 Util.errorMessage = Message.fieldIsincorrectOrMissing;
                 return false;
@@ -133,6 +136,11 @@ public class ServletBackOfficeUser extends ServletBackOffice {
         String email = this.getParam("mail");
         String password = this.getParam("password");
         String confirm_password = this.getParam("confirm-password");
+        String id_role = this.getParam("id_role");
+        if (id_role.equals("")){
+        	Util.errorMessage = Message.fieldIsincorrectOrMissing;
+        	return false;
+        }
         return Util.addFieldsAreCorrect(encryptedPassword, firstname, surname, email, password, confirm_password);
 	}
 }

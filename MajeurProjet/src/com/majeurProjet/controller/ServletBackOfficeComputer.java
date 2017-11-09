@@ -16,6 +16,8 @@ import com.majeurProjet.metier.Role;
 import com.majeurProjet.metier.Room;
 import com.majeurProjet.metier.State;
 import com.majeurProjet.metier.User;
+import com.majeurProjet.utils.Message;
+import com.majeurProjet.utils.Util;
 
 public class ServletBackOfficeComputer extends ServletBackOffice {
 
@@ -56,10 +58,26 @@ public class ServletBackOfficeComputer extends ServletBackOffice {
 			if(id != null)
 			{
 				computerCreateOrUpdate = ComputerDAO.getComputer(id);
+				if(!this.updateFieldsAreCorrect(id)) {
+					Util.showErrorMessage(this.req, Util.errorMessage);
+					model.add(computer);
+					model.add(rooms);
+					model.add(states);
+					this.displayView(model);
+					return;
+				}
 			}
 			else
 			{
 				computerCreateOrUpdate = new Computer();
+				if(!this.addFieldsAreCorrect()) {
+					Util.showErrorMessage(this.req, Util.errorMessage);
+					model.add(computer);
+					model.add(rooms);
+					model.add(states);
+					this.displayView(model);
+					return;
+				}
 			}
 			
 			HistoricalComputer historical = new HistoricalComputer();
@@ -92,5 +110,59 @@ public class ServletBackOfficeComputer extends ServletBackOffice {
 		Computer computer = ComputerDAO.getComputer(id);
 		ComputerDAO.DeleteComputer(computer);
 		this.redirect("/BackOffice/Computer/List");
+	}
+	
+	private boolean updateFieldsAreCorrect(int id) {
+		String name = this.getParam("name");
+		String ip = this.getParam("ip");
+		String id_state = this.getParam("id_state");
+		String id_room = this.getParam("id_room");
+		String[] params = {name, ip, id_state, id_room};
+		if(Util.aFieldIsEmpty(params)) {
+			Util.errorMessage = Message.fieldIsincorrectOrMissing;
+			return false;
+		}
+		
+		Computer computer = ComputerDAO.getComputerByName(name);
+		if (computer != null) {
+			if(name.equals(computer.getName()) && id != computer.getId()) {
+				Util.errorMessage = Message.nameAlreadyUsed;
+				return false;
+			}
+		}
+		
+		
+		computer = ComputerDAO.getComputerByIp(ip);
+		if (computer != null) {
+			if(ip.equals(computer.getIp()) && id != computer.getId()) {
+				Util.errorMessage = Message.ipAlreadyUsed;
+				return false;
+			}
+		}
+		return true;
+		
+	}
+	
+	private boolean addFieldsAreCorrect() {
+		String name = this.getParam("name");
+		String ip = this.getParam("ip");
+		String id_state = this.getParam("id_state");
+		String id_room = this.getParam("id_room");
+		String[] params = {name, ip, id_state, id_room};
+		if(Util.aFieldIsEmpty(params)) {
+			Util.errorMessage = Message.fieldIsincorrectOrMissing;
+			return false;
+		}
+		
+		if(ComputerDAO.computerNameAlreadyExists(name)) {
+			Util.errorMessage = Message.nameAlreadyUsed;
+			return false;
+		}
+		
+		if(ComputerDAO.computerIpAlreadyExists(ip)) {
+			Util.errorMessage = Message.ipAlreadyUsed;
+			return false;
+		}
+		return true;
 	}
 }
