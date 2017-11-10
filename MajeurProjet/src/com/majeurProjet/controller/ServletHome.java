@@ -69,6 +69,17 @@ public class ServletHome extends UtilHttpServlet {
 			Role role = RoleDAO.getRoleUser();
 			user.setRole(role);
 			UserDAO.SaveUpdateUser(user);
+			User userLog = UserDAO.getUserByMailPassword(this.getParam("mail"), encryptedPassword);
+			if (userLog != null) {
+				HttpSession session = this.req.getSession();
+				if(session != null) {
+					this.req.getSession().removeAttribute("userlog");
+				}
+				session.setAttribute("userlog", userLog);
+				if (userLog.getRole().getRole().equals("admin")) {
+					session.setAttribute("isadmin", true);
+				}
+			}
 			this.redirect("/Home/Home");
 		} else {
 			Util.showErrorMessage(this.req, Util.errorMessage);
@@ -84,6 +95,9 @@ public class ServletHome extends UtilHttpServlet {
 			User userLog = UserDAO.getUserByMailPassword(mail, encryptedPassword);
 			if (userLog != null) {
 				HttpSession session = this.req.getSession();
+				if(session != null) {
+					this.req.getSession().removeAttribute("userlog");
+				}
 				session.setAttribute("userlog", userLog);
 				if (userLog.getRole().getRole().equals("admin")) {
 					session.setAttribute("isadmin", true);
@@ -119,7 +133,7 @@ public class ServletHome extends UtilHttpServlet {
 	}
 
 	public void Logout() {
-		this.req.getSession().removeAttribute("user");
+		this.req.getSession().removeAttribute("userlog");
 		try {
 			this.resp.sendRedirect("Connection");
 		} catch (IOException e) {
