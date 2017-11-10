@@ -10,7 +10,7 @@
     <th>Delete</th>
   </tr>
   </thead>
-<c:forEach items="${model.computer}" var="computer">
+<c:forEach items="${model.computers}" var="computer">
   <tr>
     <td>${computer.name}</td>
     <td>${computer.ip}</td>

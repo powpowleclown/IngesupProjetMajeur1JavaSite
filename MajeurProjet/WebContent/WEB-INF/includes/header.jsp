@@ -22,13 +22,11 @@
 <title>${title}</title>
 </head>
 <body>
-<c:out value="${sessionScope.userlog.getRole().getRole()}"/>
 	<c:choose>
 		<c:when test="${sessionScope.userlog.getRole().getRole() == 'admin'}">
 			<header>
 				<nav class="topnav" id="myTopnav"> 
 					<a href="<c:url value="/Home/Home"></c:url>">Home</a>
-					<a href="<c:url value="/Home/Connection"></c:url>">Connection</a>
 					<a href="/MajeurProjet/BackOffice/Room/List">Rooms</a> 
 					<a href="/MajeurProjet/BackOffice/Incident/List">Incidents</a>
 					<a href="/MajeurProjet/BackOffice/Computer/List">Computers</a>
@@ -39,12 +37,17 @@
 				</nav> 
 			</header>
 		</c:when>
+		<c:when test="${sessionScope.userlog.getRole().getRole() == 'user'}">
+			<nav class="topnav" id="myTopnav"> 
+				<a href="<c:url value="/Home/Home"></c:url>">Home</a>
+				<a href="<c:url value= "/Home/Logout"></c:url>">Logout</a>
+			</nav> 
+		</c:when>
 		<c:otherwise>
 			<header>
 				<nav class="topnav" id="myTopnav"> 
 					<a href="<c:url value="/Home/Home"></c:url>">Home</a>
 					<a href="<c:url value="/Home/Connection"></c:url>">Connection</a>
-					<a href="<c:url value= "/Home/Logout"></c:url>">Logout</a>
 				</nav> 
 			</header>
 		</c:otherwise>
