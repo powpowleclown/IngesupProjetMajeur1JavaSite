@@ -1,6 +1,7 @@
 package com.majeurProjet.controller;
 
-import java.sql.Date;
+import java.util.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -79,8 +80,8 @@ public class ServletBackOfficeIncident extends ServletBackOffice {
 	
 			HistoricalIncident historical = new HistoricalIncident();
 			historical.setIncident(incidentCreateOrUpdate);
-			Calendar calendar = Calendar.getInstance();
-			historical.setDate(new Date(calendar.getTime().getTime()));
+			Date date = new Date();
+			historical.setDate(new Timestamp(date.getTime()));
 			State state = StateDAO.getState(this.getParamAsInt("id_state"));
 			historical.setState(state);
 			incidentCreateOrUpdate.getHistoricals_i().add(historical);

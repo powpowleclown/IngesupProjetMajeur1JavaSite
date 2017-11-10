@@ -4,6 +4,7 @@
   <tr>
     <th>Name</th>
     <th>Ip</th>
+    <th>Mac</th>
     <th>Room</th>
     <th>State</th>
     <th>Show</th>
@@ -14,6 +15,7 @@
 	<tr> 
 	   <td>${computer.name}</td>
 	   <td>${computer.ip}</td>
+	   <td>${computer.mac}</td>
 	   <td>${computer.room.name}</td>
 	   <td>${computer.getLastHistoricals_cState().name}</td>
 	   <td><a href = "<c:url value="./Show">

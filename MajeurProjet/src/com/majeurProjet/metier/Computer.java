@@ -34,6 +34,8 @@ public class Computer implements Serializable {
 	private String name;
 	@Column(name="ip_computer")
 	private String ip;
+	@Column(name="mac_computer")
+	private String mac;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_room_computer")
 	private Room room;
@@ -67,6 +69,14 @@ public class Computer implements Serializable {
 
 	public void setIp(String ip) {
 		this.ip = ip;
+	}
+
+	public String getMac() {
+		return mac;
+	}
+
+	public void setMac(String mac) {
+		this.mac = mac;
 	}
 
 	public Room getRoom() {

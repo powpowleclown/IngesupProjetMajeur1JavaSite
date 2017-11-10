@@ -1,6 +1,7 @@
 package com.majeurProjet.controller;
 
-import java.sql.Date;
+import java.util.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -82,13 +83,14 @@ public class ServletBackOfficeComputer extends ServletBackOffice {
 			
 			HistoricalComputer historical = new HistoricalComputer();
 			historical.setComputer(computerCreateOrUpdate);
-			Calendar calendar = Calendar.getInstance();
-			historical.setDate(new Date(calendar.getTime().getTime()));
+			Date date = new Date();
+			historical.setDate(new Timestamp(date.getTime()));
 			State state = StateDAO.getState(this.getParamAsInt("id_state"));
 			historical.setState(state);
 			computerCreateOrUpdate.getHistoricals_c().add(historical);
 			
 			computerCreateOrUpdate.setIp(this.getParam("ip"));
+			computerCreateOrUpdate.setMac(this.getParam("mac"));
 			computerCreateOrUpdate.setName(this.getParam("name"));
 			Room room = RoomDAO.getRoom(this.getParamAsInt("id_room"));
 			computerCreateOrUpdate.setRoom(room);
@@ -115,9 +117,10 @@ public class ServletBackOfficeComputer extends ServletBackOffice {
 	private boolean updateFieldsAreCorrect(int id) {
 		String name = this.getParam("name");
 		String ip = this.getParam("ip");
+		String mac = this.getParam("mac");
 		String id_state = this.getParam("id_state");
 		String id_room = this.getParam("id_room");
-		String[] params = {name, ip, id_state, id_room};
+		String[] params = {name, ip, mac, id_state, id_room};
 		if(Util.aFieldIsEmpty(params)) {
 			Util.errorMessage = Message.fieldIsincorrectOrMissing;
 			return false;
@@ -146,9 +149,10 @@ public class ServletBackOfficeComputer extends ServletBackOffice {
 	private boolean addFieldsAreCorrect() {
 		String name = this.getParam("name");
 		String ip = this.getParam("ip");
+		String mac = this.getParam("mac");
 		String id_state = this.getParam("id_state");
 		String id_room = this.getParam("id_room");
-		String[] params = {name, ip, id_state, id_room};
+		String[] params = {name, ip, mac, id_state, id_room};
 		if(Util.aFieldIsEmpty(params)) {
 			Util.errorMessage = Message.fieldIsincorrectOrMissing;
 			return false;
@@ -161,6 +165,11 @@ public class ServletBackOfficeComputer extends ServletBackOffice {
 		
 		if(ComputerDAO.computerIpAlreadyExists(ip)) {
 			Util.errorMessage = Message.ipAlreadyUsed;
+			return false;
+		}
+		
+		if(ComputerDAO.computerMacAlreadyExists(mac)) {
+			Util.errorMessage = Message.macAlreadyUsed;
 			return false;
 		}
 		return true;

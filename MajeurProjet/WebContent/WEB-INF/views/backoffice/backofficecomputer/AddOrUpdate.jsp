@@ -5,6 +5,8 @@
 		<input type="text" name="name" id="name" value="${model.get(0).name}"/>
 		<label class="backoffice-label" for="ip">Ip :</label>
 		<input type="text" name="ip" id="ip" value="${model.get(0).ip}"/>
+		<label class="backoffice-label" for="mac">Mac :</label>
+		<input type="text" name="mac" id="mac" value="${model.get(0).mac}"/>
 		<label class="backoffice-label" for="id_room">Room :</label>
 		<select name="id_room">
 			<c:forEach items="${model.get(1)}" var="room">
@@ -26,6 +28,8 @@
 		<input type="text" name="name" id="name" />
 		<label class="backoffice-label" for="ip">Ip :</label>
 		<input type="text" name="ip" id="ip" />
+		<label class="backoffice-label" for="mac">Mac :</label>
+		<input type="text" name="mac" id="mac" />
 		<label class="backoffice-label" for="id_room">Room :</label>
 		<select name="id_room">
 			<c:forEach items="${model.get(1)}" var="room">

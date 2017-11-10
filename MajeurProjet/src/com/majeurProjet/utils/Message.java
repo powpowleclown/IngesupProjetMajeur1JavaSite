@@ -12,5 +12,6 @@ public class Message {
 	public static String badEmailOrPassword = "email or password is incorrect";
 	public static String nameAlreadyUsed = "this name is alread used";
 	public static String ipAlreadyUsed = "this ip is already used";
+	public static String macAlreadyUsed = "this mac is already used";
 	public static String numberAlreadyUsed = "this number is already used";
 }

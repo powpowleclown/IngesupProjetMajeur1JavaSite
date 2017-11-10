@@ -4,6 +4,7 @@
 		<tr>
 			<th>Computer name</th>
 			<th>IP Address</th>
+			<th>MAC Address</th>
 			<th>Room</th>
 			<th>Date</th>
 			<th>State</th>
@@ -14,6 +15,7 @@
 		<tr>
 			<td>${model.name}</td>
 			<td>${model.ip}</td>
+			<td>${model.mac}</td>
 			<td>${model.room.name}</td>
 			<td>${historical.date}</td>
 			<td>${historical.state.name}</td>

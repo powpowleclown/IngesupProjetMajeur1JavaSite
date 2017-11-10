@@ -79,6 +79,22 @@ public class ComputerDAO {
 		return computer;
 	}
 	
+	public static Computer getComputerByMac(String mac) {
+		Computer computer;
+		try
+		{
+			Query query = HibernateUtil.getSession().createQuery("FROM Computer C WHERE C.mac=?");
+			query.setParameter(0, mac);
+			computer = (Computer) query.getSingleResult();
+		}
+		catch(Exception e)
+		{
+			computer = null;
+		}
+
+		return computer;
+	}
+	
 	public static boolean computerNameAlreadyExists(String name) {
 		if(getComputerByName(name) != null) {
 			return true;
@@ -89,6 +105,14 @@ public class ComputerDAO {
 	
 	public static boolean computerIpAlreadyExists(String ip) {
 		if(getComputerByIp(ip) != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public static boolean computerMacAlreadyExists(String mac) {
+		if(getComputerByMac(mac) != null) {
 			return true;
 		}else {
 			return false;

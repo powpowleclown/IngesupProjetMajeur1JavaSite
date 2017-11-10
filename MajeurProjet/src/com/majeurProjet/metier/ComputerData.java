@@ -1,5 +1,7 @@
 package com.majeurProjet.metier;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

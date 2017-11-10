@@ -1,7 +1,7 @@
 package com.majeurProjet.metier;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +25,7 @@ public class HistoricalComputer implements Serializable{
 	@Column(name="id_historical_c")
 	private int id;
 	@Column(name="date_historical_c")
-	private Date date;
+	private Timestamp date;
 	
 	private String note;
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -41,10 +41,10 @@ public class HistoricalComputer implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 	
