@@ -44,7 +44,6 @@ public class MulticastSender implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
       List<Computer> computers = ComputerDAO.ListComputer();
-      int incidentCount = IncidentDAO.ListIncident().size();
         for(Computer computer : computers)
         {
 		 try {
@@ -92,6 +91,8 @@ public class MulticastSender implements Runnable {
 		   
 		    catch (Exception ioe) 
 		    {
+		    	
+		      int incidentCount = IncidentDAO.ListIncident().size();
 		      System.out.println(ioe);
 		      Incident incident = new Incident();
 	  		  HistoricalIncident historical = new HistoricalIncident();
