@@ -27,7 +27,7 @@ public class ComputerDAO {
 	
 	public static List<Computer> ListComputer()
 	{
-		return HibernateUtil.getSession().createQuery("from Computer").getResultList();
+		return HibernateUtil.getSession().createQuery("from Computer").getResultList();	
 	}
 	
 	public static Computer getComputer(int id_computer)
