@@ -54,6 +54,7 @@ public class ComputerDataDAO {
 			System.out.println(ComputerDAO.getComputer(id_computer));
 			Query query = HibernateUtil.getSession().createQuery("FROM ComputerData C WHERE C.computer=?");
 			query.setParameter(0, ComputerDAO.getComputer(id_computer));
+			query.setMaxResults(1);
 			computerdata = (ComputerData) query.getSingleResult();
 		}
 		catch(Exception e)
