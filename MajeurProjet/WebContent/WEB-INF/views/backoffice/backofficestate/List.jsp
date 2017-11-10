@@ -1,4 +1,5 @@
-<a href = "<c:url value="./AddOrUpdate"></c:url>">Creation</a>
+<a class="button" href = "<c:url value="./AddOrUpdate"></c:url>">Create New State</a>
+<br><br>
 <table class="table-container">
   <tr>
     <th>Name</th>

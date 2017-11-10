@@ -1,11 +1,11 @@
-<a href = "<c:url value="./AddOrUpdate"></c:url>">Creation</a>
+<a class="button" href = "<c:url value="./AddOrUpdate"></c:url>">Create New User</a>
+<br><br>
 <table class="table-container">
  <thead>
   <tr>
     <th>Firstname</th>
     <th>Surname</th>
     <th>Mail</th>
-    <th>Password</th>
     <th>Role</th>
     <th>Show</th>
     <th>Update</th>
@@ -17,7 +17,6 @@
 	   <td>${user.firstname}</td>
 	   <td>${user.surname}</td>
 	   <td>${user.mail}</td>
-	   <td>${user.pwd}</td>
 	   <td>${user.role.name}</td>
 	   <td><a href = "<c:url value="./Show">
 			<c:param name="id_user" value="${user.id}"/>

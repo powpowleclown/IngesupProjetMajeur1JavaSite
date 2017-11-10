@@ -1,4 +1,5 @@
-<a href="<c:url value="./AddOrUpdate"></c:url>">Creation</a>
+<a class="button" href="<c:url value="./AddOrUpdate"></c:url>">Create a new Room</a>
+<br><br>
 <table class="table-container">
 <thead>
 	<tr>
