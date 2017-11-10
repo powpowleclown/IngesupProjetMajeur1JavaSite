@@ -1,4 +1,5 @@
-<a href="<c:url value="../Incident/AddOrUpdate"></c:url>">Creation</a>
+<a class="button" href="<c:url value="../Incident/AddOrUpdate"></c:url>">Create New Computer</a>
+<br><br>
 <table class="table-container">
 	<thead>
 		<tr>
@@ -23,8 +24,11 @@
 		</tr>
 	</c:forEach>
 </table>
-  <caption>Related Incidents</caption>
-<a href="<c:url value="../Incident/AddOrUpdate"></c:url>">Creation</a>
+<br><br>
+<a class="button" href="<c:url value="../Incident/AddOrUpdate"></c:url>">Create New Incident</a>
+<br><br>
+  <h2>Related Incidents</h2>
+ 
 <table class="table-container">
 	<thead>
 		<tr>

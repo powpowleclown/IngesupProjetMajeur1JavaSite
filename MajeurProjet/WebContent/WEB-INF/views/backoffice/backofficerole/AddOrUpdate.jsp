@@ -1,27 +1,31 @@
 <c:choose>
-  <c:when test="${model != null}">
-    <form method="post" action="#">
-		<label class="backoffice-label" class="backoffice-label" for="name">Name :</label>
-		<input type="text" name="name" id="name" value="${model.name}"/>
-		<label class="backoffice-label" class="backoffice-label" for="role">Role :</label>
-		<input type="text" name="role" id="role" value="${model.role}"/>
-		<button class="button button-block" type="submit">Envoyer</button>
-	</form>
-  </c:when>
-  <c:otherwise>
-  	<form method="post" action="#">
-		<label class="backoffice-label" for="name">Name :</label>
-		<input type="text" name="name" id="name" />
-		<label class="backoffice-label" for="role">Role :</label>
-		<input type="text" name="role" id="role" />
-		<button class="button button-block" type="submit">Envoyer</button>
-	</form>
-  </c:otherwise>
+	<c:when test="${model != null}">
+		<form method="post" action="#" class="form">
+			<label class="backoffice-label" class="backoffice-label" for="name">Name
+				:</label> <input type="text" name="name" id="name" value="${model.name}" />
+			<label class="backoffice-label" class="backoffice-label" for="role">Role
+				:</label> <input type="text" name="role" id="role" value="${model.role}" />
+			<br>
+			<br>
+
+			<button class="button button-block" type="submit">Submit</button>
+		</form>
+	</c:when>
+	<c:otherwise>
+		<form method="post" action="#" class="form">
+			<label class="backoffice-label" for="name">Name :</label> <input
+				type="text" name="name" id="name" /> <label
+				class="backoffice-label" for="role">Role :</label> <input
+				type="text" name="role" id="role" /> <br>
+			<br>
+			<button class="button button-block" type="submit">Submit</button>
+		</form>
+	</c:otherwise>
 </c:choose>
 
 
 <div>
-    <h2 style="color:red" display="${display}"> ${errorMessage}</h2>
+	<h2 style="color: red" display="${display}">${errorMessage}</h2>
 </div>
 
 <script

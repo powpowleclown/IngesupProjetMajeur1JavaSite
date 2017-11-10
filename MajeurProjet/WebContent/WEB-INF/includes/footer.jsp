@@ -5,9 +5,9 @@
 <footer>
 <div>
 	<ul class="social">
-		<li class="facebook"><i class="fa fa-facebook"></i></li>
-		<li class="twitter"><i class="fa fa-twitter"></i></li>
-		<li class="linkedin"><i class="fa fa-linkedin"></i></li>
+		<a href="https://fr-fr.facebook.com/ingesup/"><li class="facebook"><i class="fa fa-facebook"></i></li></a>
+		<a href="https://twitter.com/ingesup?"><li class="twitter"><i class="fa fa-twitter"></i></li></a>
+		<a href="https://www.linkedin.com/company/ingésup"><li class="linkedin"><i class="fa fa-linkedin"></i></li></a>
 	</ul>
 </div>
 <div class="copyright">

@@ -5,7 +5,8 @@
 </div>
 
 
-<a href = "<c:url value="../Computer/AddOrUpdate"></c:url>">Creation</a>
+<a class="button" href = "<c:url value="../Computer/AddOrUpdate"></c:url>">Create New Computer</a>
+<br><br>
 <table class="table-container">
 <thead>
   <tr>

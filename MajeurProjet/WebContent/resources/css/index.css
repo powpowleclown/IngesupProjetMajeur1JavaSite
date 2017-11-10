@@ -14,19 +14,18 @@ html {
 
 body {
 	min-height: 100%;
-	background: #c1bdba;
+	background:  #cccccc;
 }
 
 
 .backoffice-label{
-	color: rgba(255, 255, 255, 0.5);
+	color:#fff;
     font-size: 27px;
     font-weight: 600;
 }
 select{
 	font-size: 22px;
 	width:100%;
-	background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(rgba(19, 35, 47, 0.9), rgba(19, 35, 47, 0.9), rgba(19, 35, 47, 0.9));
 	background-position: 97% center;
     background-repeat: no-repeat;
     background-color:rgba(19, 35, 47, 0.9);
@@ -64,7 +63,9 @@ caption{
 	padding-top: 40px;
 }
 
-
+h2{
+	text-align:center;
+}
 
 .card p {
 	padding-bottom: 10px;
@@ -143,10 +144,6 @@ th, td {
 .topnav a.active {
 	background-color: #4CAF50;
 	color: white;
-}
-
-footer {
-	text-align: center;
 }
 
 a {
@@ -334,11 +331,11 @@ textarea {
 }
 
 footer {
-	position: absolute;
-	left: 0;
-	bottom: 0;
+	position: relative;
 	height: 100px;
 	width: 100%;
+	bottom:0;
+	text-align: center;
 }
 
 footer li {

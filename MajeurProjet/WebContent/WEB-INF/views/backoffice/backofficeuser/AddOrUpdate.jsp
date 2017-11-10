@@ -19,7 +19,7 @@
 							${role.id == model.get(0).role.id ? 'selected="selected"' :''}>${role.name}</option>
 					</c:forEach>
 				</select>
-			<button class="button button-block" type="submit">Envoyer</button>
+			<button class="button button-block" type="submit">Submit</button>
 		</form>
 	</c:when>
 	<c:otherwise>
@@ -40,7 +40,7 @@
 					<option value="${role.id}">${role.name}</option>
 				</c:forEach>
 			</select>
-			<button class="button button-block" type="submit">Envoyer</button>
+			<button class="button button-block" type="submit">Submit</button>
 		</form>
 	</c:otherwise>
 </c:choose>

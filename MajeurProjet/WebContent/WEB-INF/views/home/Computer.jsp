@@ -21,9 +21,13 @@ Don't panic if ComputerData is missing -->
 	<div class="card-content">
 	<c:choose>
 		<c:when test="${model.get(1) != null}">
+		<label class="backoffice-label">Available processors (cores)</label>
 			<p>${model.get(1).processor}</p>
+		<label class="backoffice-label">Free memory (bytes)</label>
 			<p>${model.get(1).freeMemory}</p>
+			<label class="backoffice-label">Maximum memory (bytes)</label>
 			<p>${model.get(1).maxMemory}</p>
+			<label class="backoffice-label">Total memory available to JVM (bytes)</label>
 			<p>${model.get(1).totalMemory}</p>
 		</c:when>
 		<c:otherwise>
