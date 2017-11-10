@@ -1,7 +1,12 @@
-<p>${model.name}</p>
-<p>${model.ipmask}</p>
+<div class="card">
+<i class="fa fa-archive fa-5x" aria-hidden="true"></i>
+	<p>${model.name}</p>
+	<p>${model.ipmask}</p>
+</div>
+
+
 <a href = "<c:url value="../Computer/AddOrUpdate"></c:url>">Creation</a>
-<table>
+<table class="table-container">
 <thead>
   <tr>
     <th>Name</th>
@@ -23,3 +28,4 @@
   </tr>	
 </c:forEach>
 </table>
+

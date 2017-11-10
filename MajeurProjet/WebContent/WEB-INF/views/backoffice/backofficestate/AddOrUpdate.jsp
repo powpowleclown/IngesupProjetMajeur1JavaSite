@@ -2,12 +2,12 @@
 	<c:when test="${model != null}">
 		<form method="post" action="#" class="form">
 			<div class="field-wrap">
-				<label for="name">Name :</label> <input type="text" name="name"
+				<label class="backoffice-label" for="name">Name :</label> <input type="text" name="name"
 					id="name" value="${model.name}" />
 			</div>
 			<div class="field-wrap">
 
-				<label for="table">Table :</label> <select name="table">
+				<label class="backoffice-label" for="table">Table :</label> <select name="table">
 					<option value="Computer"
 						${model.table == "Computer" ? 'selected="selected"' :''}>Computer</option>
 					<option value="Incident"
@@ -21,12 +21,12 @@
 		<form method="post" action="#" class="form">
 			<div class="field-wrap">
 
-				<label for="name">Name :</label> <input type="text" name="name"
+				<label class="backoffice-label" for="name">Name :</label> <input type="text" name="name"
 					id="name" />
 			</div>
 			<div class="field-wrap">
 
-				<label for="table">Table :</label> 
+				<label class="backoffice-label" for="table">Table :</label> 
 				<select name="table">
 					<option value="Computer">Computer</option>
 					<option value="Incident">Incident</option>

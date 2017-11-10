@@ -18,6 +18,7 @@ Don't panic if ComputerData is missing -->
 
 <div class="card">
 	<h2>Features</h2>
+	<div class="card-content">
 	<c:choose>
 		<c:when test="${model.get(1) != null}">
 			<p>${model.get(1).processor}</p>
@@ -29,5 +30,6 @@ Don't panic if ComputerData is missing -->
 			<p>Data is missing</p>
 		</c:otherwise>
 	</c:choose>
+	</div>
 </div>
 

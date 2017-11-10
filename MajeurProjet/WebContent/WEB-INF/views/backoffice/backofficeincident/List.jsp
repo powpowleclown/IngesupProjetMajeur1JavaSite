@@ -11,6 +11,8 @@
     <th>Delete</th>   
   </tr>
 </thead>
+
+
 <c:forEach items="${model}" var="incident">
 	 <tr>
 	    <td>${incident.number}</td>

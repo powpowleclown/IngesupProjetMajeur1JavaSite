@@ -17,29 +17,68 @@ body {
 	background: #c1bdba;
 }
 
+
+.backoffice-label{
+	color: rgba(255, 255, 255, 0.5);
+    font-size: 27px;
+    font-weight: 600;
+}
+select{
+	font-size: 22px;
+	width:100%;
+	background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(rgba(19, 35, 47, 0.9), rgba(19, 35, 47, 0.9), rgba(19, 35, 47, 0.9));
+	background-position: 97% center;
+    background-repeat: no-repeat;
+    background-color:rgba(19, 35, 47, 0.9);
+    border: 1px solid #AAA;
+    color: #555;
+    margin: 0 0 20px 0;
+    overflow: hidden;
+    padding: 5px 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #fff;
+}
+
+caption{
+	text-align:center;
+	
+}
+
+
 .card {
-  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
-  max-width: 350px;
-  margin:auto;
-  margin-bottom: 50px;
-  text-align: center;
-  }
-  
- .card i {
-   padding-top:40px;
- }
-  .card p{
-  padding-bottom:10px;
-  
+	box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+	max-width: 350px;
+	margin: auto;
+	margin-bottom: 50px;
+	text-align: center;
 }
-.card h2{
-	background-color:rgba(19, 35, 47, 0.9);
-	color:#fff;
+
+.card-content {
+	padding-left: 10px;
+	padding-bottom: 20px;
+	text-align: left;
+}
+
+.card i {
+	padding-top: 40px;
+}
+
+
+
+.card p {
+	padding-bottom: 10px;
+}
+
+.card h2 {
+	background-color: rgba(19, 35, 47, 0.9);
+	color: #fff;
 	text-transform: uppercase;
-	padding:10px;
-	margin-bottom:40px;
-	display:block;
+	padding: 10px;
+	margin-bottom: 40px;
+	display: block;
 }
+
 .table-container {
 	box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 	max-width: 960px;
@@ -47,8 +86,8 @@ body {
 	color: #fff
 }
 
-i.fa.fa-laptop{
-	font-size:30px;
+i.fa.fa-laptop {
+	font-size: 30px;
 }
 
 caption {
@@ -60,7 +99,7 @@ caption {
 
 thead th {
 	padding: 15px 0;
-	font-size: 1,5rem;
+	font-size: 1, 5rem;
 	font-weight: 600;
 	text-align: center;
 	background: #1ab188;
@@ -69,7 +108,7 @@ thead th {
 tr {
 	background: rgba(19, 35, 47, 0.9);
 	margin-bottom: 5px;
-	font-size:23px;
+	font-size: 23px;
 }
 
 th, td {
@@ -78,9 +117,9 @@ th, td {
 }
 
 .topnav {
-	margin-bottom:3rem;
-	background-color: rgba(19, 35, 47, 0.9);
+	margin-bottom: 3rem; background-color : rgba( 19, 35, 47, 0.9);
 	overflow: hidden;
+	background-color: rgba(19, 35, 47, 0.9);
 }
 
 /* Style the links inside the navigation bar */
@@ -206,7 +245,7 @@ label.highlight {
 	color: #fff;
 }
 
-input, textarea, select {
+input, textarea {
 	font-size: 22px;
 	display: block;
 	width: 100%;
@@ -252,9 +291,10 @@ textarea {
 }
 
 .card button {
-    font-size: 1.3rem;
-	margin-top:40px;
+	font-size: 1.3rem;
+	margin-top: 40px;
 }
+
 .button {
 	border: 0;
 	outline: none;
@@ -287,10 +327,10 @@ textarea {
 .social {
 	margin: 0;
 	padding: 0;
-	display: -webkit-inline-box;
-	-ms-flex-wrap: wrap;
-	flex-wrap: wrap;
-	position: relative;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 footer {
@@ -302,31 +342,22 @@ footer {
 }
 
 footer li {
-	-webkit-box-flex: 1;
-	-ms-flex: 1 0 auto;
-	flex: 1 0 auto;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
 	list-style: none;
 	font-size: 1.25em;
 	text-align: center;
 	height: 50px;
 	width: 50px;
-	cursor: pointer;
-	-webkit-transition: background .5s ease;
 	transition: background .5s ease;
 	cursor: pointer;
+	display: inline-block;
+	border-bottom: 0px !important;
 }
 
 li i {
-	-webkit-transition: color .5s ease;
 	transition: color .5s ease;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 li.facebook {
