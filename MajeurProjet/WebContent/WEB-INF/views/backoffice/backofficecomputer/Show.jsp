@@ -2,12 +2,14 @@
 <p>${model.ip}</p>
 <p>${model.room.name}</p>
 <a href = "<c:url value="../Incident/AddOrUpdate"></c:url>">Creation</a>
-<table>
+<table class="table-container">
+<thead>
   <tr>
     <th>Date</th>
     <th>State</th>
     <th>Note</th>
   </tr>
+  </thead>
 <c:forEach items="${model.historicals_c}" var="historical">
 	<tr>
 	   <td>${historical.date}</td>
@@ -17,7 +19,8 @@
 </c:forEach>
 </table>
 <a href = "<c:url value="../Incident/AddOrUpdate"></c:url>">Creation</a>
-<table>
+<table class="table-container">
+<thead>
   <tr>
     <th>Number</th>
     <th>Description</th>
@@ -26,6 +29,7 @@
     <th>Update</th>
     <th>Delete</th>
   </tr>
+  <thead>
 <c:forEach items="${model.incidents}" var="incident">
 	<tr>
 	   <td>${incident.number}</td>

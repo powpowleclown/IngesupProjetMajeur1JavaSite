@@ -1,4 +1,4 @@
-<table class="container">
+<table class="table-container">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -11,23 +11,15 @@
 			<td>${room.name}</td>
 			<td>${room.ipmask}</td>
 			<td>
-				<table>
-					<tr>
-						<th>Name</th>
-						<th>Ip</th>
-					</tr>
+				<ul>
+					
 					<c:forEach items="${room.getComputers()}" var="computer">
-						<tr>
-							<td>
+								<li class="tab-group"><i class="fa fa-laptop" aria-hidden="true"></i>
 								<a href="<c:url value="./Computer">
 										<c:param name="id_computer" value="${computer.id}"/>
-									</c:url>">
-									${computer.name}
-								</a>
-							</td>
-						<tr>
+										</c:url>">${computer.name}</li></a>
 					</c:forEach>
-				</table>
+				</ul>
 			</td>
 		</tr>
 	</c:forEach>

@@ -1,5 +1,6 @@
 <a href = "<c:url value="./AddOrUpdate"></c:url>">Creation</a>
-<table>
+<table class="table-container">
+ <thead>
   <tr>
     <th>Firstname</th>
     <th>Surname</th>
@@ -10,6 +11,7 @@
     <th>Update</th>
     <th>Delete</th>
   </tr>
+  </thead>
 <c:forEach items="${model}" var="user">
 	<tr>
 	   <td>${user.firstname}</td>

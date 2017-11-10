@@ -41,3 +41,7 @@
 <div>
 	<h2 style="color: red" display="${display}">${errorMessage}</h2>
 </div>
+
+
+
+<script src="../resources/js/test.js"></script>

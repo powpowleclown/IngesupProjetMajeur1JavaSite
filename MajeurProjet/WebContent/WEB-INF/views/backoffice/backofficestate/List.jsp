@@ -1,5 +1,5 @@
 <a href = "<c:url value="./AddOrUpdate"></c:url>">Creation</a>
-<table>
+<table class="table-container">
   <tr>
     <th>Name</th>
     <th>Table</th>

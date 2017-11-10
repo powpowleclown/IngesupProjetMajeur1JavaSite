@@ -2,12 +2,14 @@
 <p>${model.ipmask}</p>
 <a href = "<c:url value="../Computer/AddOrUpdate"></c:url>">Creation</a>
 <table>
+<thead>
   <tr>
     <th>Name</th>
     <th>Ip</th>
     <th>Update</th>
     <th>Delete</th>
   </tr>
+  </thead>
 <c:forEach items="${model.computer}" var="computer">
   <tr>
     <td>${computer.name}</td>

@@ -17,11 +17,38 @@ body {
 	background: #c1bdba;
 }
 
-.container {
+.card {
+  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+  max-width: 350px;
+  margin:auto;
+  margin-bottom: 50px;
+  text-align: center;
+  }
+  
+ .card i {
+   padding-top:40px;
+ }
+  .card p{
+  padding-bottom:10px;
+  
+}
+.card h2{
+	background-color:rgba(19, 35, 47, 0.9);
+	color:#fff;
+	text-transform: uppercase;
+	padding:10px;
+	margin-bottom:40px;
+	display:block;
+}
+.table-container {
 	box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 	max-width: 960px;
 	margin: 10px auto;
 	color: #fff
+}
+
+i.fa.fa-laptop{
+	font-size:30px;
 }
 
 caption {
@@ -33,7 +60,7 @@ caption {
 
 thead th {
 	padding: 15px 0;
-	font-size: 1rem;
+	font-size: 1,5rem;
 	font-weight: 600;
 	text-align: center;
 	background: #1ab188;
@@ -42,15 +69,16 @@ thead th {
 tr {
 	background: rgba(19, 35, 47, 0.9);
 	margin-bottom: 5px;
+	font-size:23px;
 }
 
 th, td {
-	text-align: left;
 	padding: 20px;
 	font-weight: 300;
 }
 
 .topnav {
+	margin-bottom:3rem;
 	background-color: rgba(19, 35, 47, 0.9);
 	overflow: hidden;
 }
@@ -148,7 +176,7 @@ h1 {
 	margin: 0 0 40px;
 }
 
-label {
+.field-wrap label {
 	position: absolute;
 	transform: translateY(6px);
 	left: 13px;
@@ -223,6 +251,10 @@ textarea {
 	margin: 0;
 }
 
+.card button {
+    font-size: 1.3rem;
+	margin-top:40px;
+}
 .button {
 	border: 0;
 	outline: none;
@@ -259,6 +291,14 @@ textarea {
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
 	position: relative;
+}
+
+footer {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 100px;
+	width: 100%;
 }
 
 footer li {

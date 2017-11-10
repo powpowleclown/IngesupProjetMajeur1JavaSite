@@ -20,6 +20,6 @@
 <body>
 	<header> <nav class="topnav" id="myTopnav"> 
 		<a href="<c:url value="/Home/Home"></c:url>">Home</a>
-		<a href="<c:url value="/Home/Connection"></c:url>">Connection</a> 
-		<a href="#news">News</a> <a href="#contact">Contact</a> <a href="#about">About</a>
+		<a href="<c:url value="/Home/Connection"></c:url>">Connection</a>
+		<a href="/MajeurProjet/BackOffice/Room/List">Rooms</a> <a href="/MajeurProjet/BackOffice/Incident/List">Incidents</a>
 	</nav> </header>
